@@ -1277,17 +1277,17 @@ function renderCompare() {
         ${
           top
             ? `<div class="cc-row"><span>见顶于</span><b>第 ${top.month} 月 · ${keyAt(top.month)}</b></div>
-               <div class="cc-row"><span>顶部</span><b>$${fmt(top.price)} <span style="color:var(--text-dimmer)">(${top.norm})</span></b></div>`
+               <div class="cc-row"><span>顶部</span><b>$${fmt(top.price)} <span style="color:var(--text-dimmer)">(${top.norm}% 起点)</span></b></div>`
             : ''
         }
         ${
           bot
             ? `<div class="cc-row"><span>触底于</span><b>第 ${bot.month} 月 · ${keyAt(bot.month)}</b></div>
-               <div class="cc-row"><span>底部</span><b>$${fmt(bot.price)} <span style="color:var(--text-dimmer)">(${bot.norm})</span></b></div>`
+               <div class="cc-row"><span>底部</span><b>$${fmt(bot.price)} <span style="color:var(--text-dimmer)">(${bot.norm}% 起点)</span></b></div>`
             : ''
         }
         <div class="cc-row"><span>最新（第 ${last.month} 月）</span><b>${last.key} · $${fmt(last.price)}</b></div>
-        <div class="cc-row"><span>较起点</span><b>${last.norm}</b></div>
+        <div class="cc-row"><span>较起点</span><b style="color:${last.norm >= 100 ? 'var(--buy)' : 'var(--sell)'}">${last.norm >= 100 ? '+' : ''}${(last.norm - 100).toFixed(1)}% <span style="color:var(--text-dimmer)">(${last.norm}%)</span></b></div>
         <div class="cc-row"><span>距顶部</span><b style="color:${vsTop >= 0 ? 'var(--buy)' : 'var(--sell)'}">${vsTop.toFixed(1)}%</b></div>
       </div>`;
     })
@@ -1350,7 +1350,7 @@ function drawCompare(hoverMonth = null) {
   ctx.setLineDash([]);
   ctx.fillStyle = '#8b949e';
   ctx.textAlign = 'left';
-  ctx.fillText('起点 = 100', pad.l + 6, y100 - 5);
+  ctx.fillText('起点 = 100%', pad.l + 6, y100 - 5);
 
   // ---- x 轴：每个周期各自的年份带 ----
   // 四条曲线叠在一起，年份各不相同，所以给每个周期画一条独立的年份带
@@ -1540,7 +1540,7 @@ function showCompareTooltip(e, month) {
       if (!s) {
         return `<div class="tt-row"><span style="color:${color}">周期${c.index}</span><b style="color:var(--text-dimmer)">未走到</b></div>`;
       }
-      return `<div class="tt-row"><span style="color:${color}">周期${c.index} · ${s.key}</span><b>${s.norm} · ${fmtPrice(s.price)}</b></div>`;
+      return `<div class="tt-row"><span style="color:${color}">周期${c.index} · ${s.key}</span><b>${fmtPrice(s.price)} <span style="color:var(--text-dimmer)">(${s.norm}%)</span></b></div>`;
     })
     .join('');
   // 从任一有数据的周期取该月的年月，作为标题参考
