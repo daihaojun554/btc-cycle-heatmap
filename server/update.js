@@ -16,6 +16,7 @@ const { checkRadar, recordEvents, LEVELS } = require('./radar');
 const { backtest } = require('./backtest');
 const { analyzeBuys, checkCurrent } = require('./buypoints');
 const notify = require('./notify');
+const { fetchFearGreed, backtestCombo } = require('./sentiment');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const CACHE_FILE = path.join(DATA_DIR, 'snapshot.json');
@@ -161,6 +162,7 @@ async function update({ quiet = false } = {}) {
     currentCycle,
     comparisons: buildComparisons(cycles, monthly),
     buyAnalysis: null,
+    sentiment: null,
     radar: null,
     backtest: null,
     meta: {
@@ -185,6 +187,30 @@ async function update({ quiet = false } = {}) {
     }
   } catch (err) {
     warnings.push(`买点分析失败: ${err.message}`);
+  }
+
+  // ---- 恐惧贪婪指数（情绪反向指标）----
+  try {
+    const fg = await fetchFearGreed();
+    snapshot.sentiment = {
+      fearGreed: {
+        current: fg.current,
+        percentile: fg.percentile,
+        streak: fg.streak,
+        stats: fg.stats,
+        zones: fg.zones,
+        lastExtremeFear: fg.lastExtremeFear,
+        lastExtremeGreed: fg.lastExtremeGreed,
+        recent: fg.recent,
+      },
+      // 「极度恐惧」单独用几乎无预测力，配合估值评分才有效 —— 把该结论做成数据
+      combo: backtestCombo(fg.series, points, 30),
+    };
+    log(
+      `恐惧贪婪指数：${fg.current.value}（${fg.current.label}）· 历史分位 ${fg.percentile}% · 连续 ${fg.streak} 天`,
+    );
+  } catch (err) {
+    warnings.push(`恐惧贪婪指数失败: ${err.message}`);
   }
 
   // ---- 买点雷达：检查是否跌破档位 ----

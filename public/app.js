@@ -113,6 +113,7 @@ function render() {
   renderHero(stats, points, halving);
   renderCycleBanner();
   renderRadar();
+  renderSentiment();
   renderMetrics(stats, points, halving);
   renderBuyAnalysis();
   renderBacktest();
@@ -1700,6 +1701,211 @@ function renderBuyAnalysis() {
     .join('');
 }
 
+// ---------------------------------------------------------------- 恐惧贪婪指数
+
+/** 情绪面板：首屏最显眼位置，数值 + 30天走势 + 历史分档 */
+function renderSentiment() {
+  const fg = snapshot.sentiment && snapshot.sentiment.fearGreed;
+  const box = document.getElementById('fg-hero');
+  if (!fg) {
+    if (box) box.style.display = 'none';
+    return;
+  }
+  box.style.display = '';
+
+  const c = fg.current;
+  box.className = 'fg-hero zone-' + c.zone;
+
+  // 数值与结论
+  const valEl = document.getElementById('fg-value');
+  valEl.textContent = c.value;
+  valEl.style.color = c.color;
+  document.getElementById('fg-zone').textContent = c.label;
+  document.getElementById('fg-zone').style.color = c.color;
+  document.getElementById('fg-advice').textContent = c.advice;
+
+  // 分档标尺（宽度按各档历史天数占比）
+  const scale = document.getElementById('fg-scale');
+  const totalDays = fg.zones.reduce((a, z) => a + z.count, 0) || 1;
+  const segLabels = { 'extreme-fear': '极度恐惧', fear: '恐惧', neutral: '中性', greed: '贪婪', 'extreme-greed': '极度贪婪' };
+  // 窄格降级方案：先缩短，再退化成一个字
+  const segShort = { 'extreme-fear': '极恐', fear: '恐惧', neutral: '中性', greed: '贪婪', 'extreme-greed': '极贪' };
+  const segTiny = { 'extreme-fear': '恐', fear: '恐', neutral: '中', greed: '贪', 'extreme-greed': '贪' };
+  scale.innerHTML = fg.zones
+    .map((z) => {
+      const w = (z.count / totalDays) * 100;
+      const isNow = z.id === c.zone;
+      const txt = w >= 10 ? segLabels[z.id] : w >= 6 ? segShort[z.id] : w >= 3 ? segTiny[z.id] : '';
+      return `<span class="fg-seg${isNow ? ' now' : ''}" style="width:${w}%;background:${z.color}" title="${z.label}：历史 ${z.count} 天（${w.toFixed(1)}%）">${txt}</span>`;
+    })
+    .join('');
+
+  // 统计信息
+  const s = fg.stats;
+  const parts = [
+    `当前处于历史 <b>${fg.percentile}%</b> 分位（越高越贪婪）`,
+    `历史区间 <b>${s.min} ~ ${s.max}</b>，中位数 ${s.median}`,
+    `已连续 <b>${fg.streak}</b> 天处于「${c.label}」`,
+  ];
+  if (fg.lastExtremeFear) parts.push(`上次「极度恐惧」：<b>${fg.lastExtremeFear.date}</b>（${fg.lastExtremeFear.value}）`);
+  if (fg.lastExtremeGreed) parts.push(`上次「极度贪婪」：<b>${fg.lastExtremeGreed.date}</b>（${fg.lastExtremeGreed.value}）`);
+  parts.push(`样本 ${s.days} 天（${s.from} 起）`);
+  document.getElementById('fg-meta').innerHTML = parts.join(' · ');
+
+  renderCombo(fg);
+  drawFearGreedChart(fg);
+}
+
+/**
+ * 「极度恐惧」的有效性说明。
+ * 单独看情绪几乎没用 —— 实测 31 次极度恐惧里，1 年后收益从 -67% 到 +851% 都有；
+ * 叠加估值评分后区分度极大。这段是页面里最有投资参考价值的内容。
+ */
+function renderCombo(fg) {
+  const el = document.getElementById('fg-combo');
+  const combo = snapshot.sentiment && snapshot.sentiment.combo;
+  if (!el || !combo || !combo.significant) {
+    if (el) el.style.display = 'none';
+    return;
+  }
+  el.style.display = '';
+
+  const cur = snapshot.stats.current;
+  const cheapNow = cur.score < combo.scoreThreshold;
+  const fng = fg.current;
+
+  el.innerHTML = `
+    <div class="fc-title">
+      「极度恐惧」单独看几乎没用 —— 必须配合估值评分
+    </div>
+    <div class="fc-grid">
+      <div class="fc-box good">
+        <div class="fc-h">情绪恐惧 + 估值便宜</div>
+        <div class="fc-c">${combo.cheapCount} 次</div>
+        <div class="fc-r">1 年后平均 <b>${combo.cheapAvg1y >= 0 ? '+' : ''}${combo.cheapAvg1y}%</b></div>
+        <div class="fc-cond">指数 &lt; 20 且 评分 &lt; ${combo.scoreThreshold}</div>
+      </div>
+      <div class="fc-box bad">
+        <div class="fc-h">情绪恐惧 但 估值不便宜</div>
+        <div class="fc-c">${combo.priceyCount} 次</div>
+        <div class="fc-r">1 年后平均 <b>${combo.priceyAvg1y >= 0 ? '+' : ''}${combo.priceyAvg1y}%</b></div>
+        <div class="fc-cond">指数 &lt; 20 但 评分 ≥ ${combo.scoreThreshold}</div>
+      </div>
+      <div class="fc-box now ${cheapNow && fng.value < 20 ? 'hit' : ''}">
+        <div class="fc-h">当前状态</div>
+        <div class="fc-c">${fng.value} / ${cur.score}</div>
+        <div class="fc-r">
+          ${
+            cheapNow && fng.value < 20
+              ? '<b style="color:var(--buy)">两个条件同时满足 ✓</b>'
+              : fng.value < 20
+                ? '<b style="color:var(--sell)">情绪到了，但估值还不够便宜</b>'
+                : cheapNow
+                  ? '<b style="color:var(--sell)">估值到了，但情绪还没恐慌</b>'
+                  : '<b style="color:var(--text-dim)">两个条件都未满足</b>'
+          }
+        </div>
+        <div class="fc-cond">指数 ${fng.value} · 评分 ${cur.score}</div>
+      </div>
+    </div>
+  `;
+}
+
+/** 近 30 天情绪走势（带分档背景） */
+function drawFearGreedChart(fg) {
+  const canvas = document.getElementById('fgChart');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth || 600;
+  const H = 150;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  const pad = { l: 30, r: 12, t: 10, b: 20 };
+  const iw = W - pad.l - pad.r;
+  const ih = H - pad.t - pad.b;
+
+  const data = fg.recent && fg.recent.length ? fg.recent : [];
+  if (data.length < 2) return;
+
+  const x = (i) => pad.l + (i / (data.length - 1)) * iw;
+  const y = (v) => pad.t + ih - (Math.max(0, Math.min(100, v)) / 100) * ih;
+
+  // 分档背景色带（横向）
+  for (const z of fg.zones) {
+    const lo = fg.zones[fg.zones.indexOf(z) - 1] ? fg.zones[fg.zones.indexOf(z) - 1].max : 0;
+    const hi = Math.min(z.max, 100);
+    ctx.fillStyle = z.color;
+    ctx.globalAlpha = 0.1;
+    ctx.fillRect(pad.l, y(hi), iw, y(lo) - y(hi));
+  }
+  ctx.globalAlpha = 1;
+
+  // 20 / 80 阈值线
+  ctx.strokeStyle = 'rgba(230,237,243,.28)';
+  ctx.setLineDash([4, 4]);
+  ctx.lineWidth = 1;
+  for (const v of [20, 80]) {
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y(v));
+    ctx.lineTo(pad.l + iw, y(v));
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // 左侧刻度
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px -apple-system, sans-serif';
+  ctx.textAlign = 'right';
+  for (const v of [0, 50, 100]) ctx.fillText(String(v), pad.l - 5, y(v) + 3.5);
+
+  // 折线
+  const color = fg.current.color;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.2;
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  data.forEach((d, i) => (i ? ctx.lineTo(x(i), y(d.value)) : ctx.moveTo(x(i), y(d.value))));
+  ctx.stroke();
+
+  // 面积填充
+  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + ih);
+  grad.addColorStop(0, color + '55');
+  grad.addColorStop(1, color + '05');
+  ctx.fillStyle = grad;
+  ctx.lineTo(x(data.length - 1), pad.t + ih);
+  ctx.lineTo(x(0), pad.t + ih);
+  ctx.closePath();
+  ctx.fill();
+
+  // 末端点
+  const lastI = data.length - 1;
+  ctx.beginPath();
+  ctx.arc(x(lastI), y(data[lastI].value), 4.5, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = '#0d1117';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 数值标注
+  ctx.fillStyle = color;
+  ctx.font = '700 12px -apple-system, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(String(data[lastI].value), x(lastI) - 4, y(data[lastI].value) - 8);
+
+  // x 轴日期
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(data[0].date.slice(5), pad.l + 12, H - 6);
+  ctx.fillText(data[lastI].date.slice(5), pad.l + iw - 12, H - 6);
+}
+
 // ---------------------------------------------------------------- 实时价格
 
 /**
@@ -1921,6 +2127,9 @@ function switchView(view) {
 
   // 切换后重画 canvas：隐藏期间尺寸为 0，直接显示会得到空白图
   if (snapshot) {
+    if (view === 'overview' && snapshot.sentiment && snapshot.sentiment.fearGreed) {
+      drawFearGreedChart(snapshot.sentiment.fearGreed);
+    }
     if (view === 'analysis') {
       renderChart(snapshot.points);
       drawCompare();
@@ -1964,5 +2173,6 @@ window.addEventListener('resize', () => {
     renderChart(snapshot.points);
     drawGauge(snapshot.stats.current.score);
     if (currentView === 'analysis') drawCompare();
+    if (snapshot.sentiment && snapshot.sentiment.fearGreed) drawFearGreedChart(snapshot.sentiment.fearGreed);
   }
 });

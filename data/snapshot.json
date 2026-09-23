@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-23T16:53:30.981Z",
-  "tookMs": 2871,
+  "generatedAt": "2026-09-23T17:06:04.362Z",
+  "tookMs": 3588,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 968294,
+    "height": 968295,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
     "progressPct": 61.09,
-    "blocksRemaining": 81706,
-    "estimatedNow": "2026-09-26T22:20:00.000Z",
-    "fetchedAt": "2026-09-23T16:53:30.963Z"
+    "blocksRemaining": 81705,
+    "estimatedNow": "2026-09-26T22:30:00.000Z",
+    "fetchedAt": "2026-09-23T17:06:04.343Z"
   },
-  "spot": 83892,
+  "spot": 83873.48,
   "stats": {
     "weeks": 677,
     "from": "2013-10-03",
@@ -25,13 +25,13 @@
     "current": {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 83878,
+      "close": 83857,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.53,
+      "drawdownPct": -33.55,
       "mayer": 1.18,
-      "trendDeviation": 0.717,
+      "trendDeviation": 0.716,
       "score": 41.4,
       "sinceAthWeeks": 50
     },
@@ -41,9 +41,9 @@
       "max": 93.1
     },
     "trendFit": {
-      "a": -14.752594936022037,
-      "b": 5.2014829256035995,
-      "sd": 0.2737776061106803
+      "a": -14.75258993725173,
+      "b": 5.201481486723427,
+      "sd": 0.2737776910472668
     }
   },
   "signals": [
@@ -8922,13 +8922,13 @@
     {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 83878,
+      "close": 83857,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.53,
+      "drawdownPct": -33.55,
       "mayer": 1.18,
-      "trendDeviation": 0.717,
+      "trendDeviation": 0.716,
       "score": 41.4,
       "sinceAthWeeks": 50
     }
@@ -11158,11 +11158,11 @@
       "open": 78581.3,
       "high": 87395.67,
       "low": 74967.97,
-      "close": 83892,
+      "close": 83873.48,
       "isPartial": true,
       "days": 23,
       "prevClose": 78581.29,
-      "changePct": 6.76
+      "changePct": 6.73
     }
   ],
   "monthlyStats": {
@@ -11171,14 +11171,14 @@
     "to": "2026-09",
     "current": {
       "key": "2026-09",
-      "close": 83892,
+      "close": 83873.48,
       "prevClose": 78581.29,
-      "changePct": 6.76,
+      "changePct": 6.73,
       "isPartial": true,
       "high": 87395.67,
       "low": 74967.97,
       "days": 23,
-      "spot": 83892
+      "spot": 83873.48
     },
     "avgChange": 6.96,
     "upMonths": 84,
@@ -12985,7 +12985,7 @@
           "key": "2026-09",
           "year": 2026,
           "cycleYear": 2,
-          "price": 83892,
+          "price": 83873.48,
           "norm": 81.9
         }
       ],
@@ -13329,11 +13329,470 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -33.53,
+        "value": -33.55,
         "pass": false,
         "gap": 36.5
       }
     ]
+  },
+  "sentiment": {
+    "fearGreed": {
+      "current": {
+        "t": 1790121600000,
+        "date": "2026-09-23",
+        "value": 71,
+        "label": "贪婪",
+        "zone": "greed",
+        "zoneLabel": "贪婪",
+        "color": "#e3813a",
+        "advice": "情绪偏热，注意风险"
+      },
+      "percentile": 83,
+      "streak": 5,
+      "stats": {
+        "min": 5,
+        "max": 95,
+        "median": 44,
+        "p10": 18,
+        "p25": 26,
+        "p75": 65,
+        "p90": 75,
+        "days": 3153,
+        "from": "2018-02-01",
+        "to": "2026-09-23"
+      },
+      "zones": [
+        {
+          "max": 20,
+          "id": "extreme-fear",
+          "label": "极度恐惧",
+          "color": "#39d353",
+          "advice": "历史上这是买点区域，可以分批建仓",
+          "count": 349
+        },
+        {
+          "max": 40,
+          "id": "fear",
+          "label": "恐惧",
+          "color": "#7ee787",
+          "advice": "情绪偏冷，适合定投",
+          "count": 1022
+        },
+        {
+          "max": 60,
+          "id": "neutral",
+          "label": "中性",
+          "color": "#d29922",
+          "advice": "情绪平稳，没有明显信号",
+          "count": 813
+        },
+        {
+          "max": 80,
+          "id": "greed",
+          "label": "贪婪",
+          "color": "#e3813a",
+          "advice": "情绪偏热，注意风险",
+          "count": 804
+        },
+        {
+          "max": 101,
+          "id": "extreme-greed",
+          "label": "极度贪婪",
+          "color": "#f85149",
+          "advice": "历史上这是卖点区域，考虑分批止盈",
+          "count": 165
+        }
+      ],
+      "lastExtremeFear": {
+        "date": "2026-07-02",
+        "value": 19
+      },
+      "lastExtremeGreed": {
+        "date": "2025-01-22",
+        "value": 84
+      },
+      "recent": [
+        {
+          "date": "2026-08-25",
+          "value": 74
+        },
+        {
+          "date": "2026-08-26",
+          "value": 65
+        },
+        {
+          "date": "2026-08-27",
+          "value": 71
+        },
+        {
+          "date": "2026-08-28",
+          "value": 73
+        },
+        {
+          "date": "2026-08-29",
+          "value": 68
+        },
+        {
+          "date": "2026-08-30",
+          "value": 69
+        },
+        {
+          "date": "2026-08-31",
+          "value": 62
+        },
+        {
+          "date": "2026-09-01",
+          "value": 69
+        },
+        {
+          "date": "2026-09-02",
+          "value": 63
+        },
+        {
+          "date": "2026-09-03",
+          "value": 65
+        },
+        {
+          "date": "2026-09-04",
+          "value": 74
+        },
+        {
+          "date": "2026-09-05",
+          "value": 73
+        },
+        {
+          "date": "2026-09-06",
+          "value": 73
+        },
+        {
+          "date": "2026-09-07",
+          "value": 71
+        },
+        {
+          "date": "2026-09-08",
+          "value": 69
+        },
+        {
+          "date": "2026-09-09",
+          "value": 66
+        },
+        {
+          "date": "2026-09-10",
+          "value": 69
+        },
+        {
+          "date": "2026-09-11",
+          "value": 56
+        },
+        {
+          "date": "2026-09-12",
+          "value": 63
+        },
+        {
+          "date": "2026-09-13",
+          "value": 61
+        },
+        {
+          "date": "2026-09-14",
+          "value": 57
+        },
+        {
+          "date": "2026-09-15",
+          "value": 69
+        },
+        {
+          "date": "2026-09-16",
+          "value": 51
+        },
+        {
+          "date": "2026-09-17",
+          "value": 50
+        },
+        {
+          "date": "2026-09-18",
+          "value": 56
+        },
+        {
+          "date": "2026-09-19",
+          "value": 71
+        },
+        {
+          "date": "2026-09-20",
+          "value": 71
+        },
+        {
+          "date": "2026-09-21",
+          "value": 70
+        },
+        {
+          "date": "2026-09-22",
+          "value": 78
+        },
+        {
+          "date": "2026-09-23",
+          "value": 71
+        }
+      ]
+    },
+    "combo": {
+      "scoreThreshold": 30,
+      "total": 31,
+      "cheapCount": 11,
+      "priceyCount": 20,
+      "cheapAvg1y": 191,
+      "priceyAvg1y": -5,
+      "significant": true,
+      "rows": [
+        {
+          "date": "2018-02-01",
+          "fng": 15,
+          "score": 39,
+          "drawdownPct": -61.55,
+          "price": 7559,
+          "gain1y": -55
+        },
+        {
+          "date": "2018-03-29",
+          "fng": 18,
+          "score": 32.9,
+          "drawdownPct": -65.46,
+          "price": 6790.4,
+          "gain1y": -27
+        },
+        {
+          "date": "2018-05-24",
+          "fng": 19,
+          "score": 34.1,
+          "drawdownPct": -62.49,
+          "price": 7374.9,
+          "gain1y": 17
+        },
+        {
+          "date": "2018-06-21",
+          "fng": 18,
+          "score": 27.9,
+          "drawdownPct": -68.8,
+          "price": 6134.2,
+          "gain1y": 95
+        },
+        {
+          "date": "2018-08-09",
+          "fng": 19,
+          "score": 29.3,
+          "drawdownPct": -68.11,
+          "price": 6269.5,
+          "gain1y": 60
+        },
+        {
+          "date": "2018-09-06",
+          "fng": 13,
+          "score": 29.5,
+          "drawdownPct": -67.86,
+          "price": 6319.5,
+          "gain1y": 61
+        },
+        {
+          "date": "2018-10-11",
+          "fng": 19,
+          "score": 30.2,
+          "drawdownPct": -67.23,
+          "price": 6442.5,
+          "gain1y": 24
+        },
+        {
+          "date": "2018-11-15",
+          "fng": 15,
+          "score": 19.3,
+          "drawdownPct": -76.87,
+          "price": 4548.2,
+          "gain1y": 65
+        },
+        {
+          "date": "2019-01-10",
+          "fng": 19,
+          "score": 13.4,
+          "drawdownPct": -81.66,
+          "price": 3606.6,
+          "gain1y": 144
+        },
+        {
+          "date": "2019-07-11",
+          "fng": 16,
+          "score": 44.5,
+          "drawdownPct": -50.64,
+          "price": 9703.9,
+          "gain1y": -5
+        },
+        {
+          "date": "2019-08-15",
+          "fng": 13,
+          "score": 43.3,
+          "drawdownPct": -48.5,
+          "price": 10125,
+          "gain1y": 16
+        },
+        {
+          "date": "2019-09-19",
+          "fng": 15,
+          "score": 33.3,
+          "drawdownPct": -57.08,
+          "price": 8439,
+          "gain1y": 28
+        },
+        {
+          "date": "2019-11-21",
+          "fng": 17,
+          "score": 26.9,
+          "drawdownPct": -61.72,
+          "price": 7525.9,
+          "gain1y": 149
+        },
+        {
+          "date": "2020-03-05",
+          "fng": 17,
+          "score": 28.2,
+          "drawdownPct": -59.6,
+          "price": 7943.3,
+          "gain1y": 603
+        },
+        {
+          "date": "2020-04-09",
+          "fng": 15,
+          "score": 21.8,
+          "drawdownPct": -66.33,
+          "price": 6619.8,
+          "gain1y": 851
+        },
+        {
+          "date": "2021-05-20",
+          "fng": 11,
+          "score": 48.8,
+          "drawdownPct": -39.47,
+          "price": 39283.9,
+          "gain1y": -25
+        },
+        {
+          "date": "2021-06-17",
+          "fng": 10,
+          "score": 41.2,
+          "drawdownPct": -48.1,
+          "price": 33683.3,
+          "gain1y": -41
+        },
+        {
+          "date": "2021-12-02",
+          "fng": 18,
+          "score": 55.6,
+          "drawdownPct": -26.78,
+          "price": 50515.1,
+          "gain1y": -67
+        },
+        {
+          "date": "2022-01-06",
+          "fng": 15,
+          "score": 47.9,
+          "drawdownPct": -36.33,
+          "price": 43927.8,
+          "gain1y": -59
+        },
+        {
+          "date": "2022-05-05",
+          "fng": 18,
+          "score": 29.9,
+          "drawdownPct": -57.97,
+          "price": 28994.1,
+          "gain1y": -5
+        },
+        {
+          "date": "2022-06-02",
+          "fng": 17,
+          "score": 31.8,
+          "drawdownPct": -56.24,
+          "price": 30190.8,
+          "gain1y": -17
+        },
+        {
+          "date": "2022-07-07",
+          "fng": 16,
+          "score": 19.6,
+          "drawdownPct": -70.67,
+          "price": 20233.6,
+          "gain1y": 50
+        },
+        {
+          "date": "2024-08-01",
+          "fng": 17,
+          "score": 44.5,
+          "drawdownPct": -25.28,
+          "price": 55091,
+          "gain1y": 109
+        },
+        {
+          "date": "2025-02-27",
+          "fng": 10,
+          "score": 53.5,
+          "drawdownPct": -16.96,
+          "price": 90610.4,
+          "gain1y": -20
+        },
+        {
+          "date": "2025-04-03",
+          "fng": 18,
+          "score": 47.5,
+          "drawdownPct": -24.34,
+          "price": 82556.3,
+          "gain1y": -9
+        },
+        {
+          "date": "2025-11-13",
+          "fng": 15,
+          "score": 43.9,
+          "drawdownPct": -27.55,
+          "price": 91427.7,
+          "gain1y": -8
+        },
+        {
+          "date": "2025-12-11",
+          "fng": 16,
+          "score": 40.9,
+          "drawdownPct": -31.69,
+          "price": 86207.8,
+          "gain1y": -3
+        },
+        {
+          "date": "2026-01-29",
+          "fng": 16,
+          "score": 33.4,
+          "drawdownPct": -42.14,
+          "price": 73013.6,
+          "gain1y": 15
+        },
+        {
+          "date": "2026-02-26",
+          "fng": 10,
+          "score": 33.4,
+          "drawdownPct": -42.4,
+          "price": 72684.8,
+          "gain1y": 15
+        },
+        {
+          "date": "2026-04-02",
+          "fng": 12,
+          "score": 32.8,
+          "drawdownPct": -43.65,
+          "price": 71109,
+          "gain1y": 18
+        },
+        {
+          "date": "2026-05-28",
+          "fng": 11,
+          "score": 28.9,
+          "drawdownPct": -49.26,
+          "price": 64035.8,
+          "gain1y": 31
+        }
+      ]
+    }
   },
   "radar": {
     "levels": [
@@ -13368,7 +13827,7 @@
     ],
     "distance": {
       "current": 41.4,
-      "price": 83892,
+      "price": 83873.48,
       "reachedLevel": null,
       "nextLevel": "watch",
       "toNext": 6.4,
@@ -13381,7 +13840,7 @@
       "alert": true,
       "watch": true
     },
-    "lastCheck": "2026-09-23T16:53:30.988Z"
+    "lastCheck": "2026-09-23T17:06:05.671Z"
   },
   "backtest": {
     "months": 155,

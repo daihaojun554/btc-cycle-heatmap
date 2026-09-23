@@ -78,10 +78,27 @@
 
 <!-- ===== 板块一：行情总览 ===== -->
 <div class="view" id="view-overview">
+  <section class="fg-hero" id="fg-hero">
+    <div class="fg-left">
+      <div class="fg-label">
+        <span>恐惧贪婪指数</span>
+        <span class="fg-source">Alternative.me · 每日更新</span>
+      </div>
+      <div class="fg-value" id="fg-value">—</div>
+      <div class="fg-zone" id="fg-zone">—</div>
+      <div class="fg-advice" id="fg-advice">—</div>
+    </div>
+    <div class="fg-right">
+      <canvas id="fgChart" height="150"></canvas>
+      <div class="fg-scale" id="fg-scale"></div>
+      <div class="fg-meta" id="fg-meta">—</div>
+    </div>
+    <div class="fg-combo" id="fg-combo"></div>
+  </section>
   <section class="metrics" id="metrics"></section>
 </div>
 
-<!-- ===== 板块二<!-- ===== 板块二：周期分析 ===== -->
+<!-- ===== 板块二：周期分析 ===== -->
 <div class="view hidden" id="view-analysis">
 <section class="panel" id="view-month">
   <div class="panel-head">
