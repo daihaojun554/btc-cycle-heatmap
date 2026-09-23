@@ -1261,23 +1261,33 @@ function renderCompare() {
     .map((c, i) => {
       const color = CYCLE_COLORS[i % CYCLE_COLORS.length];
       const last = c.series[c.series.length - 1];
-      const top = c.top || c.peak;
-      const bot = c.bottom || c.trough;
-      // 取该月对应的真实年月
+      const top = c.top;
+      const bot = c.bottom;
       const keyAt = (m) => (c.series.find((s) => s.month === m) || {}).key || '';
-      const vsTop = ((last.norm - top.norm) / top.norm) * 100;
+      const vsTop = top ? ((last.norm - top.norm) / top.norm) * 100 : 0;
+      // 同时给出「归一化倍数」和「真实美元价」，避免只看到一个没有单位的数字
+      const fmt = (v) => Math.round(v).toLocaleString('en-US');
       return `
       <div class="ccard ${c.isCurrent ? 'current' : ''}">
         <h4><span class="cc-bar" style="background:${color}"></span>周期 ${c.index} · ${c.label}
           ${c.isCurrent ? '<span class="cc-tag now">当前</span>' : ''}
           ${c.partialFromStart ? '<span class="cc-tag warn">起点缺数据</span>' : ''}
         </h4>
-        <div class="cc-sub">起点 ${c.series[0].key} · $${Math.round(c.basePrice).toLocaleString()} · 已走 ${c.months} 个月</div>
-        <div class="cc-row"><span>见顶于</span><b>第 ${top.month} 月 · ${keyAt(top.month)}</b></div>
-        <div class="cc-row"><span>触底于</span><b>第 ${bot.month} 月 · ${keyAt(bot.month)}</b></div>
-        <div class="cc-row"><span>顶部价位</span><b>${top.norm}</b></div>
-        <div class="cc-row"><span>底部价位</span><b>${bot.norm}</b></div>
-        <div class="cc-row"><span>最新（第 ${last.month} 月）</span><b>${last.key} · ${last.norm}</b></div>
+        <div class="cc-sub">起点 ${c.series[0].key} · $${fmt(c.basePrice)} · 已走 ${c.months} 个月</div>
+        ${
+          top
+            ? `<div class="cc-row"><span>见顶于</span><b>第 ${top.month} 月 · ${keyAt(top.month)}</b></div>
+               <div class="cc-row"><span>顶部</span><b>$${fmt(top.price)} <span style="color:var(--text-dimmer)">(${top.norm})</span></b></div>`
+            : ''
+        }
+        ${
+          bot
+            ? `<div class="cc-row"><span>触底于</span><b>第 ${bot.month} 月 · ${keyAt(bot.month)}</b></div>
+               <div class="cc-row"><span>底部</span><b>$${fmt(bot.price)} <span style="color:var(--text-dimmer)">(${bot.norm})</span></b></div>`
+            : ''
+        }
+        <div class="cc-row"><span>最新（第 ${last.month} 月）</span><b>${last.key} · $${fmt(last.price)}</b></div>
+        <div class="cc-row"><span>较起点</span><b>${last.norm}</b></div>
         <div class="cc-row"><span>距顶部</span><b style="color:${vsTop >= 0 ? 'var(--buy)' : 'var(--sell)'}">${vsTop.toFixed(1)}%</b></div>
       </div>`;
     })
@@ -1445,11 +1455,12 @@ function drawCompare(hoverMonth = null) {
     ctx.stroke();
     ctx.globalAlpha = 1;
 
-    // 顶/底标记用「评分定位的周期拐点」——那才是真正的周期顶底。
-    // 月收盘极值（peak/trough）会被自然四年的切分带偏：
-    // 例如周期 2 的月收盘最高点落在第 48 月（2020-12），但真实的周期顶是第 12 月（2017-12）。
-    const markTop = c.top || c.peak;
-    const markBot = c.bottom || c.trough;
+    // 顶/底标记：位置取「评分定位的周期拐点」（那才是真正的周期顶底，
+    // 月收盘极值会被自然四年的切分带偏，例如周期 2 的月收盘最高点落在第 48 月，
+    // 但真实的周期顶是第 12 月）；纵坐标取该月的最高/最低价对应的归一化值。
+    const markTop = c.top;
+    const markBot = c.bottom;
+    if (!markTop || !markBot) return;
 
     const px = x(markTop.month);
     const py = y(markTop.norm);

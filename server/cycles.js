@@ -274,10 +274,28 @@ function buildComparisons(cycles, monthly) {
     const topRef = c.top ? ms.find((m) => m.key === c.top.month) || null : null;
     const botRef = c.bottom ? ms.find((m) => m.key === c.bottom.month) || null : null;
 
-    const maxNorm = Math.max(...series.map((s) => s.norm));
-    const minNorm = Math.min(...series.map((s) => s.norm));
-    const peakRow = series.find((s) => s.norm === maxNorm);
-    const troughRow = series.find((s) => s.norm === minNorm);
+    // 顶/底用「该月的最高/最低价」，才符合"顶部/底部"的真实含义。
+    // 若只用月收盘价，会低估真实的顶底幅度：
+    // 例如 2025-10 月内冲高到 $126,198 后回落，月收盘只有 $109,608（差 13%）。
+    // 价格与归一化都用同一套口径，保证可比。
+    const top = topRef
+      ? {
+          month: ms.indexOf(topRef) + 1,
+          key: topRef.key,
+          date: c.top.date,
+          price: topRef.high,
+          norm: +((topRef.high / base) * 100).toFixed(1),
+        }
+      : null;
+    const bottom = botRef
+      ? {
+          month: ms.indexOf(botRef) + 1,
+          key: botRef.key,
+          date: c.bottom.date,
+          price: botRef.low,
+          norm: +((botRef.low / base) * 100).toFixed(1),
+        }
+      : null;
 
     out.push({
       index: c.index,
@@ -291,14 +309,10 @@ function buildComparisons(cycles, monthly) {
       months: ms.length,
       series,
       yearSpans,
-      // 月末收盘口径的顶/底（与曲线同源，可直接标注在曲线上）
-      peak: { month: peakRow.month, key: peakRow.key, norm: maxNorm, price: peakRow.price },
-      trough: { month: troughRow.month, key: troughRow.key, norm: minNorm, price: troughRow.price },
-      // 保留评分定位的顶/底日期，用于文字说明（价格仍是月收盘）
-      top: topRef ? { month: series[ms.indexOf(topRef)].month, norm: +((topRef.close / base) * 100).toFixed(1), date: c.top.date, price: topRef.close } : null,
-      bottom: botRef ? { month: series[ms.indexOf(botRef)].month, norm: +((botRef.close / base) * 100).toFixed(1), date: c.bottom.date, price: botRef.close } : null,
-      maxNorm,
-      minNorm,
+      top,
+      bottom,
+      // 月收盘价的极值（曲线上可见的最高/最低点，与 series 同源）
+      peakOnClose: { month: series.find((s) => s.norm === Math.max(...series.map((x) => x.norm))).month },
       // 数据缺口说明（周期 1 从 2013-10 才开始）
       partialFromStart: ms[0].key !== `${c.startYear}-01`,
     });
