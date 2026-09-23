@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-23T16:24:06.233Z",
-  "tookMs": 6400,
+  "generatedAt": "2026-09-23T16:28:35.047Z",
+  "tookMs": 5695,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 968292,
+    "height": 968293,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
     "progressPct": 61.09,
-    "blocksRemaining": 81708,
-    "estimatedNow": "2026-09-26T22:00:00.000Z",
-    "fetchedAt": "2026-09-23T16:24:06.215Z"
+    "blocksRemaining": 81707,
+    "estimatedNow": "2026-09-26T22:10:00.000Z",
+    "fetchedAt": "2026-09-23T16:28:35.031Z"
   },
-  "spot": 84222.94,
+  "spot": 84205.78,
   "stats": {
     "weeks": 677,
     "from": "2013-10-03",
@@ -25,11 +25,11 @@
     "current": {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 84210.7,
+      "close": 84197.1,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.27,
+      "drawdownPct": -33.28,
       "mayer": 1.19,
       "trendDeviation": 0.719,
       "score": 41.6,
@@ -41,9 +41,9 @@
       "max": 93.1
     },
     "trendFit": {
-      "a": -14.75267396428316,
-      "b": 5.20150567363782,
-      "sd": 0.2737762717387724
+      "a": -14.752670739917509,
+      "b": 5.201504745514399,
+      "sd": 0.2737763258708322
     }
   },
   "signals": [
@@ -8922,11 +8922,11 @@
     {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 84210.7,
+      "close": 84197.1,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.27,
+      "drawdownPct": -33.28,
       "mayer": 1.19,
       "trendDeviation": 0.719,
       "score": 41.6,
@@ -11158,11 +11158,11 @@
       "open": 78581.3,
       "high": 87395.67,
       "low": 74967.97,
-      "close": 84222.94,
+      "close": 84205.78,
       "isPartial": true,
       "days": 23,
       "prevClose": 78581.29,
-      "changePct": 7.18
+      "changePct": 7.16
     }
   ],
   "monthlyStats": {
@@ -11171,14 +11171,14 @@
     "to": "2026-09",
     "current": {
       "key": "2026-09",
-      "close": 84222.94,
+      "close": 84205.78,
       "prevClose": 78581.29,
-      "changePct": 7.18,
+      "changePct": 7.16,
       "isPartial": true,
       "high": 87395.67,
       "low": 74967.97,
       "days": 23,
-      "spot": 84222.94
+      "spot": 84205.78
     },
     "avgChange": 6.96,
     "upMonths": 84,
@@ -12985,7 +12985,7 @@
           "key": "2026-09",
           "year": 2026,
           "cycleYear": 2,
-          "price": 84222.94,
+          "price": 84205.78,
           "norm": 82.2
         }
       ],
@@ -13329,7 +13329,7 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -33.27,
+        "value": -33.28,
         "pass": false,
         "gap": 36.7
       }
@@ -13368,7 +13368,7 @@
     ],
     "distance": {
       "current": 41.6,
-      "price": 84222.94,
+      "price": 84205.78,
       "reachedLevel": null,
       "nextLevel": "watch",
       "toNext": 6.6,
@@ -13381,7 +13381,7 @@
       "alert": true,
       "watch": true
     },
-    "lastCheck": "2026-09-23T16:24:06.241Z"
+    "lastCheck": "2026-09-23T16:28:35.055Z"
   },
   "backtest": {
     "months": 155,

@@ -69,8 +69,8 @@ async function fetchKrakenWeekly() {
 async function fetchDaily() {
   const sources = [
     { name: 'binance', fn: fetchBinanceDaily },
+    { name: 'okx', fn: fetchOkxDaily },
     { name: 'coinbase', fn: fetchCoinbaseDaily },
-    { name: 'kraken', fn: fetchKrakenDaily },
   ];
   const errors = [];
 
@@ -113,48 +113,64 @@ async function fetchBinanceDaily() {
   return all.map((r) => ({ t: r[0], o: Number(r[1]), h: Number(r[2]), l: Number(r[3]), c: Number(r[4]) }));
 }
 
-/** Coinbase 全量日线（每页 300 根，向前翻页） */
-async function fetchCoinbaseDaily() {
-  const MAX_PAGES = 12; // 12 * 300 = 3600 天 ≈ 9.8 年
+/**
+ * OKX 全量日线（用 after 参数向前翻页）。
+ * OKX 的 /market/history-candles 每页 100 条，after = 取早于该时间戳的数据。
+ * 这是 Binance 不可用时的主力备选 —— Coinbase 的 candles 接口忽略 end 参数、
+ * 只能返回最近约 350 天，无法覆盖历史。
+ */
+async function fetchOkxDaily() {
+  const MAX_PAGES = 40; // 40 * 100 = 4000 天 ≈ 11 年
   const seen = new Set();
   let all = [];
-  let end = Date.now();
+  let after = ''; // 空表示从最新开始
+  let prevOldest = Infinity;
 
   for (let page = 0; page < MAX_PAGES; page++) {
-    const url = `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&end=${new Date(end).toISOString()}`;
-    const rows = await getJSON(url);
-    if (!Array.isArray(rows) || rows.length === 0) break;
+    const url = `https://www.okx.com/api/v5/market/history-candles?instId=BTC-USDT&bar=1D&limit=100${after ? `&after=${after}` : ''}`;
+    const d = await getJSON(url);
+    if (!d || d.code !== '0' || !Array.isArray(d.data) || d.data.length === 0) break;
 
-    // Coinbase 返回格式: [time(秒), low, high, open, close, volume]，且为倒序
-    const fresh = rows.filter((r) => !seen.has(r[0]));
-    if (fresh.length === 0) break;
+    // OKX 格式: [ts(ms), open, high, low, close, ...]（倒序）
+    const fresh = d.data.filter((r) => !seen.has(r[0]));
     for (const r of fresh) seen.add(r[0]);
-
     all = fresh.concat(all);
-    const oldest = Math.min(...rows.map((r) => r[0]));
-    end = oldest * 1000 - 86400000;
-    if (rows.length < 300) break;
+
+    const oldest = Math.min(...d.data.map((r) => Number(r[0])));
+    if (oldest >= prevOldest) break; // 边界未推进，防止死循环
+    prevOldest = oldest;
+    after = String(oldest);
+    if (d.data.length < 100) break;
   }
 
   if (all.length === 0) throw new Error('无数据');
-  all.sort((a, b) => a[0] - b[0]);
+  all.sort((a, b) => Number(a[0]) - Number(b[0]));
   return all.map((r) => ({
+    t: Number(r[0]),
+    o: Number(r[1]),
+    h: Number(r[2]),
+    l: Number(r[3]),
+    c: Number(r[4]),
+  }));
+}
+
+/**
+ * Coinbase 日线（兜底）。
+ * 注意：该接口会忽略 end 参数，只能返回最近约 350 天，
+ * 因此仅在没有其他源可用时使用。
+ */
+async function fetchCoinbaseDaily() {
+  const rows = await getJSON('https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400');
+  if (!Array.isArray(rows) || rows.length === 0) throw new Error('无数据');
+  // Coinbase 格式: [time(秒), low, high, open, close, volume]
+  rows.sort((a, b) => a[0] - b[0]);
+  return rows.map((r) => ({
     t: r[0] * 1000,
     o: Number(r[3]),
     h: Number(r[2]),
     l: Number(r[1]),
     c: Number(r[4]),
   }));
-}
-
-/** Kraken 日线（只回最近约 720 天，作为最后兜底） */
-async function fetchKrakenDaily() {
-  const raw = await getJSON('https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440');
-  if (raw.error && raw.error.length) throw new Error(raw.error.join(','));
-  const key = Object.keys(raw.result).find((k) => k !== 'last');
-  const rows = raw.result[key];
-  if (!rows || !rows.length) throw new Error('无数据');
-  return rows.map((r) => ({ t: r[0] * 1000, o: Number(r[1]), h: Number(r[2]), l: Number(r[3]), c: Number(r[4]) }));
 }
 
 /** 实时价格多源容错（任一可用即可），返回 { price, source, at } */
