@@ -1906,18 +1906,28 @@ function setStatus(ok, data, errMsg) {
 }
 
 // 视图切换
+const SECTIONS = ['overview', 'analysis', 'signal', 'backtest'];
+
 function switchView(view) {
+  if (!SECTIONS.includes(view)) view = 'overview';
   currentView = view;
+
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.view === view));
-  document.getElementById('view-month').classList.toggle('hidden', view !== 'month');
-  document.getElementById('view-cycle').classList.toggle('hidden', view !== 'cycle');
-  document.getElementById('view-compare').classList.toggle('hidden', view !== 'compare');
-  // 切换后重绘画布，避免隐藏期间 canvas 尺寸为 0 导致空白
-  if (snapshot) {
-    renderChart(snapshot.points);
-    drawGauge(snapshot.stats.current.score);
-    if (view === 'compare') drawCompare();
+  // 每次只显示一个板块；顶部行情条（hero / cycleBanner / radar）常驻，不参与切换
+  for (const id of SECTIONS) {
+    const el = document.getElementById('view-' + id);
+    if (el) el.classList.toggle('hidden', id !== view);
   }
+
+  // 切换后重画 canvas：隐藏期间尺寸为 0，直接显示会得到空白图
+  if (snapshot) {
+    if (view === 'analysis') {
+      renderChart(snapshot.points);
+      drawCompare();
+    }
+    drawGauge(snapshot.stats.current.score);
+  }
+
   try {
     localStorage.setItem('btc-heatmap-view', view);
   } catch {
@@ -1932,11 +1942,12 @@ document.querySelectorAll('.tab').forEach((t) => {
 // 启动
 try {
   const saved = localStorage.getItem('btc-heatmap-view');
-  if (['cycle', 'month', 'compare'].includes(saved)) currentView = saved;
+  if (SECTIONS.includes(saved)) currentView = saved;
 } catch {
   /* 忽略 */
 }
-if (currentView !== 'month') switchView(currentView);
+// 无论初始板块是什么都跑一次，确保隐藏的 canvas 在首次显示时能被正确绘制
+switchView(currentView);
 
 initNotifyUI();
 load();
@@ -1952,6 +1963,6 @@ window.addEventListener('resize', () => {
   if (snapshot) {
     renderChart(snapshot.points);
     drawGauge(snapshot.stats.current.score);
-    if (currentView === 'compare') drawCompare();
+    if (currentView === 'analysis') drawCompare();
   }
 });

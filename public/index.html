@@ -23,11 +23,13 @@
 </header>
 
 <nav class="viewtabs" role="tablist">
-  <button class="tab active" data-view="month" role="tab">月度涨跌热力图</button>
-  <button class="tab" data-view="cycle" role="tab">周期估值热力图</button>
-  <button class="tab" data-view="compare" role="tab">周期对比</button>
+  <button class="tab active" data-view="overview" role="tab">行情总览</button>
+  <button class="tab" data-view="analysis" role="tab">周期分析</button>
+  <button class="tab" data-view="signal" role="tab">买卖信号</button>
+  <button class="tab" data-view="backtest" role="tab">策略回测</button>
 </nav>
 
+<!-- ===== 全局顶部行情条（所有板块常驻，不随导航切换） ===== -->
 <section class="hero">
   <div class="hero-main">
     <div class="live-tag">
@@ -74,9 +76,77 @@
   </div>
 </section>
 
-<section class="metrics" id="metrics"></section>
+<!-- ===== 板块一：行情总览 ===== -->
+<div class="view" id="view-overview">
+  <section class="metrics" id="metrics"></section>
+</div>
 
-<!-- 历史买点规律 -->
+<!-- ===== 板块二<!-- ===== 板块二：周期分析 ===== -->
+<div class="view hidden" id="view-analysis">
+<section class="panel" id="view-month">
+  <div class="panel-head">
+    <h2>月度涨跌热力图</h2>
+    <div class="legend">
+      <span class="legend-label">大跌</span>
+      <div class="legend-scale" id="legend-month"></div>
+      <span class="legend-label">大涨</span>
+    </div>
+  </div>
+  <p class="hint">
+    每格 = 1 个月，颜色 = <b>相对上个月的涨跌幅</b>。每 <b>4 行</b> = 一个四年周期，
+    左侧有周期框与阶段标注；最后一格是当月，用实时价对比上月收盘，标为 <b>进行中</b>。
+  </p>
+  <div class="heatmap-scroll"><div id="heatmap-month"></div></div>
+  <div class="axis-note" id="axis-month"></div>
+</section>
+
+<!-- 周期估值视图 -->
+<section class="panel" id="view-cycle">
+  <div class="panel-head">
+    <h2>周期估值热力图</h2>
+    <div class="legend">
+      <span class="legend-label">便宜 / 买点</span>
+      <div class="legend-scale" id="legend-scale"></div>
+      <span class="legend-label">昂贵 / 卖点</span>
+    </div>
+  </div>
+  <p class="hint">每格 = 1 周，颜色 = 周期估值评分。<b>★</b> 为历史上已确认的周期顶/底。</p>
+  <div class="heatmap-scroll"><div id="heatmap"></div></div>
+  <div class="axis-note" id="axis-note"></div>
+</section>
+
+
+
+<!-- 周期对比视图 -->
+<section class="panel" id="view-compare">
+  <div class="panel-head">
+    <h2>周期对比</h2>
+    <span class="hint-inline" id="compare-hint">各周期以自身起点 = 100% 归一化，按「周期内第几个月」对齐</span>
+  </div>
+  <p class="hint">
+    四条曲线 = 四个四年周期。<b>横轴是周期内第几个月</b>（1-48），
+    纵轴是相对各自起点的百分比（<b>起点 = 100%</b>，150% 表示比起点涨了一半）。
+    这样可以公平比较「涨得多快、顶在哪、底在哪」，
+    否则各周期起点价格差了 400 倍（$264 vs $102,430），叠加后无法辨认。
+  </p>
+  <div class="compare-legend" id="compare-legend"></div>
+  <canvas id="compareChart" height="490"></canvas>
+  <div class="compare-cards" id="compare-cards"></div>
+</section>
+
+
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>价格与周期评分走势</h2>
+    <span class="hint-inline">对数坐标 · 背景色 = 评分区间</span>
+  </div>
+  <canvas id="chart" height="360"></canvas>
+</section>
+</div><!-- /周期分析 -->
+
+<!-- ===== 板块三：买卖信号 ===== -->
+<div class="view hidden" id="view-signal">
 <section class="panel" id="buy-panel">
   <div class="panel-head">
     <h2>历史买点规律</h2>
@@ -115,39 +185,6 @@
   </div>
 </section>
 
-<!-- 月度视图 -->
-<section class="panel view" id="view-month">
-  <div class="panel-head">
-    <h2>月度涨跌热力图</h2>
-    <div class="legend">
-      <span class="legend-label">大跌</span>
-      <div class="legend-scale" id="legend-month"></div>
-      <span class="legend-label">大涨</span>
-    </div>
-  </div>
-  <p class="hint">
-    每格 = 1 个月，颜色 = <b>相对上个月的涨跌幅</b>。每 <b>4 行</b> = 一个四年周期，
-    左侧有周期框与阶段标注；最后一格是当月，用实时价对比上月收盘，标为 <b>进行中</b>。
-  </p>
-  <div class="heatmap-scroll"><div id="heatmap-month"></div></div>
-  <div class="axis-note" id="axis-month"></div>
-</section>
-
-<!-- 周期估值视图 -->
-<section class="panel view hidden" id="view-cycle">
-  <div class="panel-head">
-    <h2>周期估值热力图</h2>
-    <div class="legend">
-      <span class="legend-label">便宜 / 买点</span>
-      <div class="legend-scale" id="legend-scale"></div>
-      <span class="legend-label">昂贵 / 卖点</span>
-    </div>
-  </div>
-  <p class="hint">每格 = 1 周，颜色 = 周期估值评分。<b>★</b> 为历史上已确认的周期顶/底。</p>
-  <div class="heatmap-scroll"><div id="heatmap"></div></div>
-  <div class="axis-note" id="axis-note"></div>
-</section>
-
 <section class="panel">
   <div class="panel-head">
     <h2>历次周期信号</h2>
@@ -162,24 +199,10 @@
     </table>
   </div>
 </section>
+</div><!-- /买卖信号 -->
 
-<!-- 周期对比视图 -->
-<section class="panel view hidden" id="view-compare">
-  <div class="panel-head">
-    <h2>周期对比</h2>
-    <span class="hint-inline" id="compare-hint">各周期以自身起点 = 100% 归一化，按「周期内第几个月」对齐</span>
-  </div>
-  <p class="hint">
-    四条曲线 = 四个四年周期。<b>横轴是周期内第几个月</b>（1-48），
-    纵轴是相对各自起点的百分比（<b>起点 = 100%</b>，150% 表示比起点涨了一半）。
-    这样可以公平比较「涨得多快、顶在哪、底在哪」，
-    否则各周期起点价格差了 400 倍（$264 vs $102,430），叠加后无法辨认。
-  </p>
-  <div class="compare-legend" id="compare-legend"></div>
-  <canvas id="compareChart" height="490"></canvas>
-  <div class="compare-cards" id="compare-cards"></div>
-</section>
-
+<!-- ===== 板块四：策略回测 ===== -->
+<div class="view hidden" id="view-backtest">
 <section class="panel">
   <div class="panel-head">
     <h2>定投策略回测</h2>
@@ -192,14 +215,7 @@
   </p>
   <div class="bt-grid" id="backtest"></div>
 </section>
-
-<section class="panel">
-  <div class="panel-head">
-    <h2>价格与周期评分走势</h2>
-    <span class="hint-inline">对数坐标 · 背景色 = 评分区间</span>
-  </div>
-  <canvas id="chart" height="360"></canvas>
-</section>
+</div><!-- /策略回测 -->
 
 <footer class="foot">
   <div>
