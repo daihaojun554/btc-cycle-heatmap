@@ -78,23 +78,49 @@
 
 <!-- ===== 板块一：行情总览 ===== -->
 <div class="view" id="view-overview">
-  <section class="fg-hero" id="fg-hero">
-    <div class="fg-left">
-      <div class="fg-label">
-        <span>恐惧贪婪指数</span>
+  <div class="duo">
+    <!-- 左：情绪 -->
+    <section class="fg-hero" id="fg-hero">
+      <div class="fg-head">
+        <span class="fg-name">恐惧贪婪指数</span>
         <span class="fg-source">Alternative.me · 每日更新</span>
       </div>
-      <div class="fg-value" id="fg-value">—</div>
-      <div class="fg-zone" id="fg-zone">—</div>
-      <div class="fg-advice" id="fg-advice">—</div>
-    </div>
-    <div class="fg-right">
-      <canvas id="fgChart" height="150"></canvas>
-      <div class="fg-scale" id="fg-scale"></div>
+      <div class="fg-body">
+        <div class="fg-left">
+          <div class="fg-value" id="fg-value">—</div>
+          <div class="fg-zone" id="fg-zone">—</div>
+          <div class="fg-advice" id="fg-advice">—</div>
+        </div>
+        <div class="fg-right">
+          <canvas id="fgChart" height="130"></canvas>
+          <div class="fg-scale" id="fg-scale"></div>
+        </div>
+      </div>
       <div class="fg-meta" id="fg-meta">—</div>
-    </div>
-    <div class="fg-combo" id="fg-combo"></div>
-  </section>
+    </section>
+
+    <!-- 右：筹码 -->
+    <section class="mv-hero" id="mv-hero">
+      <div class="fg-head">
+        <span class="fg-name">MVRV · 链上筹码</span>
+        <span class="fg-source">Coin Metrics · 延迟约 2 天</span>
+      </div>
+      <div class="fg-body">
+        <div class="fg-left">
+          <div class="fg-value" id="mv-value">—</div>
+          <div class="fg-zone" id="mv-zone">—</div>
+          <div class="fg-advice" id="mv-advice">—</div>
+        </div>
+        <div class="fg-right">
+          <canvas id="mvChart" height="130"></canvas>
+          <div class="mv-cost" id="mv-cost">—</div>
+        </div>
+      </div>
+      <div class="fg-meta" id="mv-meta">—</div>
+    </section>
+  </div>
+
+  <div class="fg-combo" id="fg-combo"></div>
   <section class="metrics" id="metrics"></section>
 </div>
 

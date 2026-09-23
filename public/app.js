@@ -114,6 +114,7 @@ function render() {
   renderCycleBanner();
   renderRadar();
   renderSentiment();
+  renderMVRV();
   renderMetrics(stats, points, halving);
   renderBuyAnalysis();
   renderBacktest();
@@ -1763,52 +1764,98 @@ function renderSentiment() {
  */
 function renderCombo(fg) {
   const el = document.getElementById('fg-combo');
-  const combo = snapshot.sentiment && snapshot.sentiment.combo;
-  if (!el || !combo || !combo.significant) {
-    if (el) el.style.display = 'none';
-    return;
-  }
-  el.style.display = '';
+  if (!el) return;
 
+  // ---- 三维度买点检查（情绪 / 估值 / 筹码）----
+  const mv = snapshot.onchain && snapshot.onchain.mvrv;
   const cur = snapshot.stats.current;
-  const cheapNow = cur.score < combo.scoreThreshold;
-  const fng = fg.current;
+  const fngV = fg.current.value;
+
+  const checks = [
+    {
+      id: 'fng',
+      name: '情绪',
+      sub: '恐惧贪婪指数',
+      value: fngV,
+      display: String(fngV),
+      req: '< 20',
+      pass: fngV < 20,
+      gap: fngV < 20 ? null : `${fngV - 20} 点`,
+      hint: '市场恐慌时才有便宜货',
+    },
+    {
+      id: 'score',
+      name: '估值',
+      sub: '周期估值评分',
+      value: cur.score,
+      display: String(cur.score),
+      req: '< 30',
+      pass: cur.score < 30,
+      gap: cur.score < 30 ? null : `${(cur.score - 30).toFixed(1)} 分`,
+      hint: '价格相对长期趋势的位置',
+    },
+    {
+      id: 'mvrv',
+      name: '筹码',
+      sub: 'MVRV 链上成本',
+      value: mv ? mv.current.mvrv : null,
+      display: mv ? mv.current.mvrv.toFixed(2) : '—',
+      req: '< 1.0',
+      pass: mv ? mv.current.mvrv < 1.0 : false,
+      gap: mv && mv.current.mvrv >= 1.0 ? (mv.current.mvrv - 1.0).toFixed(2) : null,
+      hint: mv ? `全网平均成本 ${fmtPrice(mv.current.avgCost)}` : '',
+    },
+  ];
+
+  const passed = checks.filter((c) => c.pass).length;
+  const summary =
+    passed === 3
+      ? { text: '三个维度全部满足 —— 历史级买点', color: 'var(--buy)' }
+      : passed === 2
+        ? { text: '满足两个维度，接近买点', color: '#d29922' }
+        : passed === 1
+          ? { text: '仅满足一个维度，继续等待', color: '#e3813a' }
+          : { text: '三个维度都不满足 —— 现在不是买点', color: 'var(--sell)' };
+
+  const combo = snapshot.sentiment && snapshot.sentiment.combo;
 
   el.innerHTML = `
-    <div class="fc-title">
-      「极度恐惧」单独看几乎没用 —— 必须配合估值评分
+    <div class="fc-head">
+      <span class="fc-title">买点三维度检查</span>
+      <span class="fc-summary" style="color:${summary.color}">${summary.text}（${passed}/3）</span>
     </div>
-    <div class="fc-grid">
-      <div class="fc-box good">
-        <div class="fc-h">情绪恐惧 + 估值便宜</div>
-        <div class="fc-c">${combo.cheapCount} 次</div>
-        <div class="fc-r">1 年后平均 <b>${combo.cheapAvg1y >= 0 ? '+' : ''}${combo.cheapAvg1y}%</b></div>
-        <div class="fc-cond">指数 &lt; 20 且 评分 &lt; ${combo.scoreThreshold}</div>
-      </div>
-      <div class="fc-box bad">
-        <div class="fc-h">情绪恐惧 但 估值不便宜</div>
-        <div class="fc-c">${combo.priceyCount} 次</div>
-        <div class="fc-r">1 年后平均 <b>${combo.priceyAvg1y >= 0 ? '+' : ''}${combo.priceyAvg1y}%</b></div>
-        <div class="fc-cond">指数 &lt; 20 但 评分 ≥ ${combo.scoreThreshold}</div>
-      </div>
-      <div class="fc-box now ${cheapNow && fng.value < 20 ? 'hit' : ''}">
-        <div class="fc-h">当前状态</div>
-        <div class="fc-c">${fng.value} / ${cur.score}</div>
-        <div class="fc-r">
-          ${
-            cheapNow && fng.value < 20
-              ? '<b style="color:var(--buy)">两个条件同时满足 ✓</b>'
-              : fng.value < 20
-                ? '<b style="color:var(--sell)">情绪到了，但估值还不够便宜</b>'
-                : cheapNow
-                  ? '<b style="color:var(--sell)">估值到了，但情绪还没恐慌</b>'
-                  : '<b style="color:var(--text-dim)">两个条件都未满足</b>'
-          }
-        </div>
-        <div class="fc-cond">指数 ${fng.value} · 评分 ${cur.score}</div>
-      </div>
+    <div class="fc-checks">
+      ${checks
+        .map(
+          (c) => `
+        <div class="fck ${c.pass ? 'pass' : 'fail'}">
+          <div class="fck-top">
+            <span class="fck-name">${c.name}</span>
+            <span class="fck-icon">${c.pass ? '✅' : '❌'}</span>
+          </div>
+          <div class="fck-sub">${c.sub}</div>
+          <div class="fck-val">${c.display}</div>
+          <div class="fck-req">要求 ${c.req}${c.gap ? ' · 还差 ' + c.gap : ' · 已满足'}</div>
+          <div class="fck-hint">${c.hint}</div>
+        </div>`,
+        )
+        .join('')}
     </div>
+    ${
+      combo && combo.significant
+        ? `<div class="fc-note">
+            历史验证：「极度恐惧」单独看几乎没有预测力 —— 实测 ${combo.total} 次出现里 1 年后收益从 -67% 到 +851% 都有。
+            但叠加估值评分后区分度极大：
+            <b>指数&lt;20 且 评分&lt;${combo.scoreThreshold}</b> → ${combo.cheapCount} 次，1 年后平均
+            <b style="color:var(--buy)">${combo.cheapAvg1y >= 0 ? '+' : ''}${combo.cheapAvg1y}%</b>；
+            <b>指数&lt;20 但 评分≥${combo.scoreThreshold}</b> → ${combo.priceyCount} 次，1 年后平均
+            <b style="color:var(--sell)">${combo.priceyAvg1y >= 0 ? '+' : ''}${combo.priceyAvg1y}%</b>。
+            所以三个维度要一起看，不能只看情绪。
+          </div>`
+        : ''
+    }
   `;
+  el.style.display = '';
 }
 
 /** 近 30 天情绪走势（带分档背景） */
@@ -1904,6 +1951,137 @@ function drawFearGreedChart(fg) {
   ctx.textAlign = 'center';
   ctx.fillText(data[0].date.slice(5), pad.l + 12, H - 6);
   ctx.fillText(data[lastI].date.slice(5), pad.l + iw - 12, H - 6);
+}
+
+// ---------------------------------------------------------------- MVRV 链上筹码
+
+/** MVRV 面板：与情绪面板并排，一个看情绪、一个看筹码 */
+function renderMVRV() {
+  const mv = snapshot.onchain && snapshot.onchain.mvrv;
+  const box = document.getElementById('mv-hero');
+  if (!mv) {
+    if (box) box.style.display = 'none';
+    return;
+  }
+  box.style.display = '';
+  const c = mv.current;
+  box.className = 'mv-hero zone-' + c.zone;
+
+  document.getElementById('mv-value').textContent = c.mvrv.toFixed(2);
+  document.getElementById('mv-value').style.color = c.color;
+  document.getElementById('mv-zone').textContent = c.zoneLabel;
+  document.getElementById('mv-zone').style.color = c.color;
+  document.getElementById('mv-advice').textContent = c.advice;
+
+  // 全网平均成本 —— MVRV 最直观的解读
+  const diffPct = ((c.price - c.avgCost) / c.avgCost) * 100;
+  const costEl = document.getElementById('mv-cost');
+  costEl.innerHTML = `
+    <span>全网平均成本 <b>${fmtPrice(c.avgCost)}</b></span>
+    <span class="mv-diff" style="color:${diffPct >= 0 ? 'var(--buy)' : 'var(--sell)'}">
+      现价 ${diffPct >= 0 ? '高于' : '低于'}成本 ${Math.abs(diffPct).toFixed(0)}%
+    </span>
+  `;
+
+  const s = mv.stats;
+  const parts = [
+    `当前处于历史 <b>${mv.percentile}%</b> 分位`,
+    `历史区间 <b>${s.min} ~ ${s.max}</b>，中位数 ${s.median}`,
+    `已连续 <b>${mv.streak}</b> 天处于「${c.zoneLabel}」`,
+    `历史最低 <b>${mv.cheapest.mvrv.toFixed(2)}</b>（${mv.cheapest.date}，周期底）`,
+    `历史最高 <b>${mv.priciest.mvrv.toFixed(2)}</b>（${mv.priciest.date}，周期顶）`,
+  ];
+  if (mv.lastBelowCost) parts.push(`上次跌破成本线：<b>${mv.lastBelowCost.date}</b>（${mv.lastBelowCost.mvrv.toFixed(2)}）`);
+  parts.push(`样本 ${s.days} 天 · 数据延迟约 ${s.lagDays} 天`);
+  document.getElementById('mv-meta').innerHTML = parts.join(' · ');
+
+  drawMVRVChart(mv);
+}
+
+/** 近 90 天 MVRV 走势，带 1.0 成本线与分档背景 */
+function drawMVRVChart(mv) {
+  const canvas = document.getElementById('mvChart');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth || 500;
+  const H = 130;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  const pad = { l: 34, r: 12, t: 10, b: 18 };
+  const iw = W - pad.l - pad.r;
+  const ih = H - pad.t - pad.b;
+
+  const data = mv.recent && mv.recent.length ? mv.recent : [];
+  if (data.length < 2) return;
+
+  const vals = data.map((d) => d.mvrv);
+  const lo = Math.min(...vals, 1.0) * 0.96;
+  const hi = Math.max(...vals, 1.3) * 1.04;
+  const x = (i) => pad.l + (i / (data.length - 1)) * iw;
+  const y = (v) => pad.t + ih - ((Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ih;
+
+  // 分档背景
+  for (const z of mv.zones) {
+    const idx = mv.zones.indexOf(z);
+    const zLo = mv.zones[idx - 1] ? mv.zones[idx - 1].max : lo;
+    const zHi = Math.min(z.max, hi);
+    if (zHi <= lo || zLo >= hi) continue;
+    ctx.fillStyle = z.color;
+    ctx.globalAlpha = 0.09;
+    ctx.fillRect(pad.l, y(zHi), iw, y(Math.max(zLo, lo)) - y(zHi));
+  }
+  ctx.globalAlpha = 1;
+
+  // 1.0 成本线
+  if (lo < 1.0 && hi > 1.0) {
+    ctx.strokeStyle = 'rgba(230,237,243,.45)';
+    ctx.setLineDash([5, 4]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y(1.0));
+    ctx.lineTo(pad.l + iw, y(1.0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '9.5px -apple-system, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('1.0 成本线', pad.l + 4, y(1.0) - 4);
+  }
+
+  // 折线
+  const color = mv.current.color;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.2;
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  data.forEach((d, i) => (i ? ctx.lineTo(x(i), y(d.mvrv)) : ctx.moveTo(x(i), y(d.mvrv))));
+  ctx.stroke();
+
+  // 末端点
+  const lastI = data.length - 1;
+  ctx.beginPath();
+  ctx.arc(x(lastI), y(data[lastI].mvrv), 4, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = '#0d1117';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 刻度
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '9.5px -apple-system, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(lo.toFixed(1), pad.l - 4, y(lo) + 3);
+  ctx.fillText(hi.toFixed(1), pad.l - 4, y(hi) + 3);
+
+  ctx.textAlign = 'center';
+  ctx.fillText(data[0].date.slice(5), pad.l + 14, H - 4);
+  ctx.fillText(data[lastI].date.slice(5), pad.l + iw - 14, H - 4);
 }
 
 // ---------------------------------------------------------------- 实时价格
@@ -2127,8 +2305,10 @@ function switchView(view) {
 
   // 切换后重画 canvas：隐藏期间尺寸为 0，直接显示会得到空白图
   if (snapshot) {
-    if (view === 'overview' && snapshot.sentiment && snapshot.sentiment.fearGreed) {
-      drawFearGreedChart(snapshot.sentiment.fearGreed);
+    if (view === 'overview') {
+      if (snapshot.sentiment && snapshot.sentiment.fearGreed) drawFearGreedChart(snapshot.sentiment.fearGreed);
+    if (snapshot.onchain && snapshot.onchain.mvrv) drawMVRVChart(snapshot.onchain.mvrv);
+      if (snapshot.onchain && snapshot.onchain.mvrv) drawMVRVChart(snapshot.onchain.mvrv);
     }
     if (view === 'analysis') {
       renderChart(snapshot.points);
@@ -2174,5 +2354,6 @@ window.addEventListener('resize', () => {
     drawGauge(snapshot.stats.current.score);
     if (currentView === 'analysis') drawCompare();
     if (snapshot.sentiment && snapshot.sentiment.fearGreed) drawFearGreedChart(snapshot.sentiment.fearGreed);
+    if (snapshot.onchain && snapshot.onchain.mvrv) drawMVRVChart(snapshot.onchain.mvrv);
   }
 });

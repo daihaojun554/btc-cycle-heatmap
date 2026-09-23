@@ -17,6 +17,7 @@ const { backtest } = require('./backtest');
 const { analyzeBuys, checkCurrent } = require('./buypoints');
 const notify = require('./notify');
 const { fetchFearGreed, backtestCombo } = require('./sentiment');
+const { fetchMVRV } = require('./mvrv');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const CACHE_FILE = path.join(DATA_DIR, 'snapshot.json');
@@ -163,6 +164,7 @@ async function update({ quiet = false } = {}) {
     comparisons: buildComparisons(cycles, monthly),
     buyAnalysis: null,
     sentiment: null,
+    onchain: null,
     radar: null,
     backtest: null,
     meta: {
@@ -211,6 +213,29 @@ async function update({ quiet = false } = {}) {
     );
   } catch (err) {
     warnings.push(`恐惧贪婪指数失败: ${err.message}`);
+  }
+
+  // ---- MVRV 链上估值（全网平均成本视角）----
+  try {
+    const mv = await fetchMVRV();
+    snapshot.onchain = {
+      mvrv: {
+        current: mv.current,
+        percentile: mv.percentile,
+        streak: mv.streak,
+        stats: mv.stats,
+        zones: mv.zones,
+        cheapest: mv.cheapest,
+        priciest: mv.priciest,
+        lastBelowCost: mv.lastBelowCost,
+        recent: mv.recent,
+      },
+    };
+    log(
+      `MVRV：${mv.current.mvrv}（${mv.current.zoneLabel}）· 全网平均成本 $${mv.current.avgCost.toLocaleString()} · 分位 ${mv.percentile}%`,
+    );
+  } catch (err) {
+    warnings.push(`MVRV 失败: ${err.message}`);
   }
 
   // ---- 买点雷达：检查是否跌破档位 ----
