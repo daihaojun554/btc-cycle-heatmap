@@ -7,6 +7,16 @@ on:
   schedule:
     # 每小时的第 3 分钟（错开整点高峰，GitHub 的 cron 在整点最拥堵）
     - cron: '3 * * * *'
+  # 代码或页面有改动时立即重新部署，否则改了前端不会生效。
+  # 用 paths-ignore（而非 paths）排除自动提交的数据文件，
+  # 避免"提交数据 → 触发 push → 再提交"的循环。
+  # 注意：paths 与 paths-ignore 不能同时使用。
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'public/data.json'
+      - 'data/**'
+      - '**/*.md'
   workflow_dispatch: # 支持手动触发
 
 # 需要写权限来提交数据，以及部署 Pages
@@ -40,6 +50,9 @@ jobs:
 
       - name: 提交数据变更
         id: commit
+        # 仅在定时任务时提交数据。push 触发时跳过，
+        # 否则"提交→触发→再提交"会形成循环。
+        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
