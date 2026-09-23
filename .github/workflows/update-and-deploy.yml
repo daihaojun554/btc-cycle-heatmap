@@ -66,6 +66,12 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: 注入资源版本串
+        # GitHub Pages 对静态文件设了 cache-control: max-age=600 且无法覆盖，
+        # 用构建时间戳做查询串，确保代码更新后浏览器不会用到旧缓存。
+        # 放在提交步骤之后，避免时间戳被写进仓库。
+        run: node server/stamp.js "$(date -u +%Y%m%d%H%M%S)"
+
       - name: 上传 Pages 产物
         uses: actions/upload-pages-artifact@v3
         with:
