@@ -1,0 +1,70 @@
+name: 更新 BTC 数据并部署
+
+# 每小时抓一次数据，烘焙成静态文件；有变化就提交，并触发 Pages 部署。
+# 同时检查买点雷达，跌破档位时推送 Telegram。
+
+on:
+  schedule:
+    # 每小时的第 3 分钟（错开整点高峰，GitHub 的 cron 在整点最拥堵）
+    - cron: '3 * * * *'
+  workflow_dispatch: # 支持手动触发
+
+# 需要写权限来提交数据，以及部署 Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 避免上一次还没跑完就启动下一次
+concurrency:
+  group: btc-data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 抓取数据并重算（零依赖，无需 npm install）
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node server/update.js
+
+      - name: 提交数据变更
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data.json data/snapshot.json data/radar-state.json data/radar-events.jsonl 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "数据无变化，跳过提交"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore(data): 自动更新 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

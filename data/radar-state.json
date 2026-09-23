@@ -1,0 +1,11 @@
+{
+  "armed": {
+    "deep": true,
+    "buy": true,
+    "alert": true,
+    "watch": true
+  },
+  "lastScore": 42.3,
+  "lastCheck": "2026-09-23T12:20:55.362Z",
+  "history": []
+}

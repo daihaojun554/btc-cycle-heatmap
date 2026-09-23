@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BTC 四年周期热力图 · 什么时候买入 / 卖出</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🟩</text></svg>" />
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo">₿</span>
+    <div>
+      <h1>BTC 四年周期热力图</h1>
+      <p class="sub">每个格子 = 1 周 · 颜色 = 该周的「周期性价比位置」 · 一眼看出历史上的最佳买点与卖点</p>
+    </div>
+  </div>
+  <div class="status" id="status">
+    <span class="dot" id="dot"></span>
+    <span id="status-text">加载中…</span>
+  </div>
+</header>
+
+<nav class="viewtabs" role="tablist">
+  <button class="tab active" data-view="month" role="tab">月度涨跌热力图</button>
+  <button class="tab" data-view="cycle" role="tab">周期估值热力图</button>
+  <button class="tab" data-view="compare" role="tab">周期对比</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-main">
+    <div class="live-tag">
+      <span class="live-dot"></span>实时价格
+      <span class="live-src" id="live-status">连接中…</span>
+    </div>
+    <div class="price" id="price">—</div>
+    <div class="price-sub" id="price-sub">—</div>
+  </div>
+  <div class="verdict" id="verdict">
+    <div class="verdict-label">当前周期位置</div>
+    <div class="verdict-value" id="verdict-value">—</div>
+    <div class="verdict-desc" id="verdict-desc">—</div>
+  </div>
+  <div class="gauge-wrap">
+    <canvas id="gauge" width="260" height="150"></canvas>
+  </div>
+</section>
+
+<section class="cycleBanner" id="cycle-banner">
+  <div class="cb-main">
+    <div class="cb-label">当前四年周期</div>
+    <div class="cb-title" id="cb-title">—</div>
+    <div class="cb-stage" id="cb-stage">—</div>
+  </div>
+  <div class="cb-progress">
+    <div class="cb-bar"><div class="cb-fill" id="cb-fill"></div>
+      <div class="cb-marks" id="cb-marks"></div>
+    </div>
+    <div class="cb-legend" id="cb-legend"></div>
+  </div>
+</section>
+
+<section class="radar" id="radar">
+  <div class="radar-main">
+    <div class="radar-label">买点雷达</div>
+    <div class="radar-status" id="radar-status">—</div>
+    <div class="radar-desc" id="radar-desc">—</div>
+  </div>
+  <div class="radar-ladder" id="radar-ladder"></div>
+  <div class="radar-actions">
+    <button class="btn" id="btn-notify">开启桌面通知</button>
+    <button class="btn ghost" id="btn-test">测试通知</button>
+  </div>
+</section>
+
+<section class="metrics" id="metrics"></section>
+
+<!-- 历史买点规律 -->
+<section class="panel" id="buy-panel">
+  <div class="panel-head">
+    <h2>历史买点规律</h2>
+    <span class="hint-inline" id="buy-summary">—</span>
+  </div>
+
+  <div class="buy-check" id="buy-check"></div>
+
+  <div class="buy-cols">
+    <div class="buy-col">
+      <h3>买点出现在哪个阶段</h3>
+      <div id="buy-phases"></div>
+      <div class="buy-note" id="buy-phase-note">—</div>
+    </div>
+    <div class="buy-col">
+      <h3>买点在周期第几个月</h3>
+      <div id="buy-months"></div>
+      <div class="buy-note">买点集中在第 <b>16–24</b> 个月；唯一例外是 2020-03（第 39 月，疫情黑天鹅）</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="buy-table">
+      <thead>
+        <tr>
+          <th>日期</th><th>买入价</th><th>评分</th><th>距 ATH</th>
+          <th>周期</th><th>阶段</th><th>1 年后</th><th>2 年后</th><th>1年内最大浮亏</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="buy-disclaimer">
+    ⚠️ 以上规律基于 2013–2026 共 6 个买点样本，样本量很小。ETF 与机构资金可能正在改变市场结构，
+    四年节奏未必延续。本页为数据整理，<b>不构成投资建议</b>。
+  </div>
+</section>
+
+<!-- 月度视图 -->
+<section class="panel view" id="view-month">
+  <div class="panel-head">
+    <h2>月度涨跌热力图</h2>
+    <div class="legend">
+      <span class="legend-label">大跌</span>
+      <div class="legend-scale" id="legend-month"></div>
+      <span class="legend-label">大涨</span>
+    </div>
+  </div>
+  <p class="hint">
+    每格 = 1 个月，颜色 = <b>相对上个月的涨跌幅</b>。每 <b>4 行</b> = 一个四年周期，
+    左侧有周期框与阶段标注；最后一格是当月，用实时价对比上月收盘，标为 <b>进行中</b>。
+  </p>
+  <div class="heatmap-scroll"><div id="heatmap-month"></div></div>
+  <div class="axis-note" id="axis-month"></div>
+</section>
+
+<!-- 周期估值视图 -->
+<section class="panel view hidden" id="view-cycle">
+  <div class="panel-head">
+    <h2>周期估值热力图</h2>
+    <div class="legend">
+      <span class="legend-label">便宜 / 买点</span>
+      <div class="legend-scale" id="legend-scale"></div>
+      <span class="legend-label">昂贵 / 卖点</span>
+    </div>
+  </div>
+  <p class="hint">每格 = 1 周，颜色 = 周期估值评分。<b>★</b> 为历史上已确认的周期顶/底。</p>
+  <div class="heatmap-scroll"><div id="heatmap"></div></div>
+  <div class="axis-note" id="axis-note"></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>历次周期信号</h2>
+    <span class="hint-inline">后续表现 = 该信号到下一个反向信号（或至今）的涨跌幅</span>
+  </div>
+  <div class="table-wrap">
+    <table id="signals-table">
+      <thead>
+        <tr><th>类型</th><th>日期</th><th>价格</th><th>周期评分</th><th>后续表现</th><th>状态</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 周期对比视图 -->
+<section class="panel view hidden" id="view-compare">
+  <div class="panel-head">
+    <h2>周期对比</h2>
+    <span class="hint-inline" id="compare-hint">各周期以自身起点 = 100 归一化，按「周期内第几个月」对齐</span>
+  </div>
+  <p class="hint">
+    四条曲线 = 四个四年周期。<b>横轴是周期内第几个月</b>（1-48），
+    纵轴是相对各自起点的倍数（起点 = 100）。这样可以公平比较「涨得多快、顶在哪、底在哪」，
+    否则各周期起点价格差了 400 倍（$264 vs $102,430），叠加后无法辨认。
+  </p>
+  <div class="compare-legend" id="compare-legend"></div>
+  <canvas id="compareChart" height="490"></canvas>
+  <div class="compare-cards" id="compare-cards"></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>定投策略回测</h2>
+    <span class="hint-inline">低分多买 vs 每月等额定投</span>
+  </div>
+  <p class="hint">
+    每月基准预算 $100，按周期评分调整倍率：<b>评分&lt;15 投 4 倍</b> · <b>&lt;25 投 2 倍</b> ·
+    <b>&lt;40 投 1 倍</b> · <b>≥40 只投 0.5 倍</b>（留现金等更低位）。
+    两种策略总投入不同，因此同时给出「每投入 1 美元的产出」，这个指标可直接比较。
+  </p>
+  <div class="bt-grid" id="backtest"></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>价格与周期评分走势</h2>
+    <span class="hint-inline">对数坐标 · 背景色 = 评分区间</span>
+  </div>
+  <canvas id="chart" height="360"></canvas>
+</section>
+
+<footer class="foot">
+  <div>
+    数据源 Kraken / Blockstream · 每 <span id="interval">60</span> 分钟自动更新 ·
+    快照时间 <span id="generated">—</span>
+  </div>
+  <div class="disclaimer">本图基于历史统计规律，不构成投资建议。加密资产波动极大，请自行判断风险。</div>
+</footer>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

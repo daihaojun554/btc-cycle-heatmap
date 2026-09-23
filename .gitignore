@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.DS_Store
+data/radar-state.json.tmp
+public/data.json.tmp
