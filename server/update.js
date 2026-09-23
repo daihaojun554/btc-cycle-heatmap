@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { fetchKrakenWeekly, fetchBinanceDaily, fetchSpotPrice, fetchTipHeight, halvingInfo, aggregateMonthly, aggregateMonthlyFromWeekly, withMonthlyChange } = require('./fetch');
+const { fetchKrakenWeekly, fetchDaily, fetchSpotPriceDetailed, fetchTipHeight, halvingInfo, aggregateMonthly, aggregateMonthlyFromWeekly, withMonthlyChange } = require('./fetch');
 const { analyze } = require('./analyze');
 const { buildCycles, cycleProgress, buildComparisons } = require('./cycles');
 const { checkRadar, recordEvents, LEVELS } = require('./radar');
@@ -51,14 +51,14 @@ async function update({ quiet = false } = {}) {
     log(`Kraken 周线 ${weekly.length} 条`);
   } catch (err) {
     warnings.push(`Kraken 失败: ${err.message}`);
-    log('Kraken 失败，尝试 Binance 日线…');
+    log('Kraken 失败，尝试其他日线源…');
     try {
-      const d = await fetchBinanceDaily();
-      weekly = d; // 日线也能喂给周期分析（analyze 只依赖 t/o/h/l/c）
-      source = 'binance-daily';
-      log(`Binance 日线 ${d.length} 条`);
+      const d = await fetchDaily();
+      weekly = d.rows; // 日线也能喂给周期分析（analyze 只依赖 t/o/h/l/c）
+      source = `${d.source}-daily`;
+      log(`${d.source} 日线 ${d.rows.length} 条`);
     } catch (err2) {
-      warnings.push(`Binance 失败: ${err2.message}`);
+      warnings.push(`日线源失败: ${err2.message}`);
     }
   }
 
@@ -76,21 +76,44 @@ async function update({ quiet = false } = {}) {
   // 实时价（用于当月尚未收盘的格子）
   let spot = null;
   try {
-    spot = await fetchSpotPrice();
+    spot = (await fetchSpotPriceDetailed()).price;
     log(`实时价 $${spot}`);
   } catch (err) {
     warnings.push(`实时价失败: ${err.message}`);
   }
 
-  // 月度序列：日线聚合自然月 + 周线补全上古时期
+  // 月度序列：优先用日线聚合自然月；日线全部不可用时退回周线聚合。
+  // 这一步必须有兜底 —— 否则月度数据为空会连锁导致周期、对比图、回测全部失效。
   let monthly = [];
   try {
-    const daily = source === 'binance-daily' ? weekly : await fetchBinanceDaily();
-    monthly = aggregateMonthly(daily, spot);
-    const firstKey = monthly.length ? monthly[0].key : null;
-    const older = aggregateMonthlyFromWeekly(source === 'kraken' ? weekly : [], firstKey);
-    monthly = withMonthlyChange(older.concat(monthly));
-    log(`月度序列 ${monthly.length} 个月（${monthly[0].key} → ${monthly[monthly.length - 1].key}）`);
+    let daily = null;
+    if (source.endsWith('-daily')) {
+      daily = weekly; // 周线本身就是日线数据降级来的
+    } else {
+      try {
+        const r = await fetchDaily();
+        daily = r.rows;
+      } catch (err) {
+        warnings.push(`日线源全部失败，月度改用周线聚合: ${err.message}`);
+      }
+    }
+
+    if (daily && daily.length > 100) {
+      monthly = aggregateMonthly(daily, spot);
+      const firstKey = monthly.length ? monthly[0].key : null;
+      const older = aggregateMonthlyFromWeekly(source === 'kraken' ? weekly : [], firstKey);
+      monthly = withMonthlyChange(older.concat(monthly));
+    } else if (source === 'kraken' || weekly.length > 100) {
+      // 兜底：纯周线聚合。精度略低（月末取当周收盘），但保证图表可用。
+      monthly = withMonthlyChange(aggregateMonthlyFromWeekly(weekly));
+      warnings.push('月度数据由周线聚合（精度略低）');
+    }
+
+    if (monthly.length) {
+      log(`月度序列 ${monthly.length} 个月（${monthly[0].key} → ${monthly[monthly.length - 1].key}）`);
+    } else {
+      warnings.push('月度序列为空');
+    }
   } catch (err) {
     warnings.push(`月度聚合失败: ${err.message}`);
   }

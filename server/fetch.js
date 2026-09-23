@@ -58,9 +58,37 @@ async function fetchKrakenWeekly() {
 }
 
 /**
- * 拉取 Binance 全量日线（分页向前翻），用于精确聚合「自然月」。
- * 返回按时间升序的 [{ t, o, h, l, c }]
+ * 拉取全量日线（用于精确聚合「自然月」），多源容错。
+ *
+ * 重要：不能只依赖 Binance —— 它会用 HTTP 451 屏蔽 GitHub Actions 的机房 IP
+ * （法律合规限制），导致 CI 里月度数据全部为空。这里按顺序尝试多个源，
+ * Coinbase / Kraken 对机房 IP 友好，作为主力备选。
+ *
+ * 返回按时间升序的 [{ t, o, h, l, c }]，以及实际使用的源名。
  */
+async function fetchDaily() {
+  const sources = [
+    { name: 'binance', fn: fetchBinanceDaily },
+    { name: 'coinbase', fn: fetchCoinbaseDaily },
+    { name: 'kraken', fn: fetchKrakenDaily },
+  ];
+  const errors = [];
+
+  for (const src of sources) {
+    try {
+      const rows = await src.fn();
+      if (rows && rows.length > 100) {
+        return { rows, source: src.name };
+      }
+      errors.push(`${src.name}: 数据过少(${rows ? rows.length : 0})`);
+    } catch (err) {
+      errors.push(`${src.name}: ${err.message}`);
+    }
+  }
+  throw new Error(`所有日线源均失败 → ${errors.join('; ')}`);
+}
+
+/** Binance 全量日线（分页向前翻） */
 async function fetchBinanceDaily() {
   const MAX_PAGES = 8; // 8 * 1000 天 ≈ 21 年，足够
   let end = Date.now();
@@ -80,8 +108,53 @@ async function fetchBinanceDaily() {
     end = rows[0][0] - 1;
   }
 
+  if (all.length === 0) throw new Error('无数据');
   all.sort((a, b) => a[0] - b[0]);
   return all.map((r) => ({ t: r[0], o: Number(r[1]), h: Number(r[2]), l: Number(r[3]), c: Number(r[4]) }));
+}
+
+/** Coinbase 全量日线（每页 300 根，向前翻页） */
+async function fetchCoinbaseDaily() {
+  const MAX_PAGES = 12; // 12 * 300 = 3600 天 ≈ 9.8 年
+  const seen = new Set();
+  let all = [];
+  let end = Date.now();
+
+  for (let page = 0; page < MAX_PAGES; page++) {
+    const url = `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&end=${new Date(end).toISOString()}`;
+    const rows = await getJSON(url);
+    if (!Array.isArray(rows) || rows.length === 0) break;
+
+    // Coinbase 返回格式: [time(秒), low, high, open, close, volume]，且为倒序
+    const fresh = rows.filter((r) => !seen.has(r[0]));
+    if (fresh.length === 0) break;
+    for (const r of fresh) seen.add(r[0]);
+
+    all = fresh.concat(all);
+    const oldest = Math.min(...rows.map((r) => r[0]));
+    end = oldest * 1000 - 86400000;
+    if (rows.length < 300) break;
+  }
+
+  if (all.length === 0) throw new Error('无数据');
+  all.sort((a, b) => a[0] - b[0]);
+  return all.map((r) => ({
+    t: r[0] * 1000,
+    o: Number(r[3]),
+    h: Number(r[2]),
+    l: Number(r[1]),
+    c: Number(r[4]),
+  }));
+}
+
+/** Kraken 日线（只回最近约 720 天，作为最后兜底） */
+async function fetchKrakenDaily() {
+  const raw = await getJSON('https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440');
+  if (raw.error && raw.error.length) throw new Error(raw.error.join(','));
+  const key = Object.keys(raw.result).find((k) => k !== 'last');
+  const rows = raw.result[key];
+  if (!rows || !rows.length) throw new Error('无数据');
+  return rows.map((r) => ({ t: r[0] * 1000, o: Number(r[1]), h: Number(r[2]), l: Number(r[3]), c: Number(r[4]) }));
 }
 
 /** 实时价格多源容错（任一可用即可），返回 { price, source, at } */
@@ -263,6 +336,7 @@ function withMonthlyChange(months) {
 
 module.exports = {
   fetchKrakenWeekly,
+  fetchDaily,
   fetchBinanceDaily,
   fetchSpotPrice,
   fetchSpotPriceDetailed,
