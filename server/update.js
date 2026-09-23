@@ -18,6 +18,7 @@ const { analyzeBuys, checkCurrent } = require('./buypoints');
 const notify = require('./notify');
 const { fetchFearGreed, backtestCombo } = require('./sentiment');
 const { fetchMVRV } = require('./mvrv');
+const daily = require('./daily');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const CACHE_FILE = path.join(DATA_DIR, 'snapshot.json');
@@ -261,6 +262,35 @@ async function update({ quiet = false } = {}) {
     }
   } catch (err) {
     warnings.push(`雷达检查失败: ${err.message}`);
+  }
+
+  // ---- 每日简报（早晚两个时段检查，只在有变化时推送）----
+  try {
+    const entry = daily.extract(snapshot);
+    const history = daily.readDaily();
+    const prev = history.length ? history[history.length - 1] : null;
+    const d = daily.diff(prev, entry, LEVELS);
+
+    snapshot.dailyBrief = { current: entry, previous: prev, change: { reasons: d.reasons, gap: d.gap } };
+
+    // 只在 UTC 0 点或 13 点所在的运行窗口推送，避免每小时都发
+    const utcHour = new Date().getUTCHours();
+    const isBriefWindow = utcHour === 0 || utcHour === 13;
+
+    if (isBriefWindow && d.shouldSend) {
+      const msg = daily.format(entry, d, LEVELS);
+      const r = await notify.send(msg);
+      log(`📊 日报已推送：${d.reasons.join(' · ')}${r.ok ? '' : '（失败：' + (r.error || r.reason) + '）'}`);
+      snapshot.dailyBrief.sent = true;
+      snapshot.dailyBrief.sentAt = new Date().toISOString();
+    } else if (isBriefWindow) {
+      log('📊 日报无需推送（无显著变化）');
+      snapshot.dailyBrief.sent = false;
+    }
+
+    daily.appendDaily(entry);
+  } catch (err) {
+    warnings.push(`日报失败: ${err.message}`);
   }
 
   // ---- 回测 ----
