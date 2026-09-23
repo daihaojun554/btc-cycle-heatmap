@@ -1039,10 +1039,10 @@ function hideTooltip() {
 // ---------------------------------------------------------------- 买点雷达
 
 const RADAR_ADVICE = {
-  watch: { text: '进入观察区', desc: '评分已低于 35，开始留意，但还不到买入时机。', cls: 'level-watch' },
-  alert: { text: '接近买点', desc: '评分低于 25，已进入历史买点评分范围，可以开始分批建仓。', cls: 'level-alert' },
-  buy: { text: '历史级买点', desc: '评分低于 15，历史上三次大底都在这个区间，适合重仓。', cls: 'level-buy' },
-  deep: { text: '极度低估', desc: '评分低于 8，2015 年级别的历史大底，极其罕见。', cls: 'level-deep' },
+  entry: { text: '可以开始动手', desc: '评分低于 30，进入值得买入的区间（之前都算追高）。建议小仓试水，投入计划的 2 成。', cls: 'level-watch' },
+  add: { text: '进入买点区间', desc: '评分低于 25，已覆盖历史所有买点的评分上限。建议加仓，投入计划的 3 成。', cls: 'level-alert' },
+  buy: { text: '历史级买点', desc: '评分低于 15，历史上三次大底都在这个区间。建议重仓，投入计划的 3 成。', cls: 'level-buy' },
+  deep: { text: '极度低估', desc: '评分低于 8，2015 年级别的历史大底，极其罕见。可投入剩余全部。', cls: 'level-deep' },
 };
 
 function renderRadar() {
@@ -1059,7 +1059,7 @@ function renderRadar() {
 
   box.className = 'radar' + (reached ? ' ' + reached.cls : '');
 
-  document.getElementById('radar-status').textContent = reached ? reached.text : '等待中 · 尚未进入观察区';
+  document.getElementById('radar-status').textContent = reached ? reached.text : '等待中 · 尚未进入买入区间';
   document.getElementById('radar-status').style.color = reached
     ? d.reachedLevel === 'buy' || d.reachedLevel === 'deep'
       ? '#39d353'
@@ -1070,7 +1070,11 @@ function renderRadar() {
   if (reached) {
     desc = reached.desc;
   } else {
-    desc = `当前评分 ${d.current}，距「进入观察区(35)」还差 ${d.toNext} 分 · 距买点(15)还差 ${d.toBuy} 分`;
+    // 动态生成：下一档是哪一档、差多少分，以及历史买点上限在哪
+    const next = (r.levels || []).filter((l) => l.threshold < d.current).sort((a, b) => b.threshold - a.threshold)[0];
+    desc = next
+      ? `当前评分 ${d.current}，距「${next.label}」还差 ${(d.current - next.threshold).toFixed(1)} 分（历史买点上限 26.5，所以 30 分以下才值得动手）`
+      : `当前评分 ${d.current}`;
   }
   document.getElementById('radar-desc').textContent = desc;
 
@@ -1086,7 +1090,7 @@ function renderRadar() {
 
     const el = document.createElement('div');
     el.className = 'rung' + (isReached ? ' reached' : '') + (isNext ? ' active' : '');
-    const color = lv.id === 'deep' || lv.id === 'buy' ? '#39d353' : lv.id === 'alert' ? '#e3813a' : '#d29922';
+    const color = lv.id === 'deep' || lv.id === 'buy' ? '#39d353' : lv.id === 'add' ? '#e3813a' : '#d29922';
     el.innerHTML = `
       <span class="rung-dot" style="background:${isReached ? color : 'var(--text-dimmer)'};color:${color}"></span>
       <span class="rung-name">${lv.emoji} ${lv.label}</span>

@@ -3,11 +3,15 @@
 /**
  * 买点雷达：监控周期评分，跌破档位时触发提醒。
  *
- * 档位设计依据历史买点分布（所有真买点评分在 3.2 ~ 26.5 之间）：
- *   watch  35  进入观察区（历史买点上限 26.5 之上留缓冲）
- *   alert  25  接近买点（包含历史最贵的买点 26.5）
- *   buy    15  历史级买点（2018/2020/2022 三次真买点都在此附近）
- *   deep   8   极度低估（2015 双底级别）
+ * 档位设计依据：
+ *   - 历史所有真买点的评分在 3.2 ~ 26.5 之间（最贵的一次是 2026-06 的 26.5）
+ *   - 因此 30 分是「首次值得动手」的位置，35 分以上仍属追高
+ *
+ * 每档附带仓位建议，比例对应「把计划资金分成 10 份」的投入节奏：
+ *   entry  30  首次动手（高于历史最贵买点，只投小仓）
+ *   add    25  进入历史买点区间，加仓
+ *   buy    15  历史级买点（2018/2020/2022 三次大底都在此附近）
+ *   deep    8  极度低估（2015 双底级别），投入最大
  */
 
 const fs = require('fs');
@@ -18,13 +22,41 @@ const STATE_FILE = path.join(DATA_DIR, 'radar-state.json');
 const EVENTS_FILE = path.join(DATA_DIR, 'radar-events.jsonl');
 
 const LEVELS = [
-  { id: 'deep', threshold: 8, label: '极度低估', emoji: '🟢', desc: '2015 年级别的历史大底' },
-  { id: 'buy', threshold: 15, label: '历史级买点', emoji: '🟢', desc: '2018/2020/2022 三次真买点都在此区间' },
-  { id: 'alert', threshold: 25, label: '接近买点', emoji: '🟡', desc: '已覆盖历史所有买点的评分上限' },
-  { id: 'watch', threshold: 35, label: '进入观察区', emoji: '🟠', desc: '开始留意，准备资金' },
+  {
+    id: 'deep',
+    threshold: 8,
+    label: '极度低估',
+    emoji: '🟢',
+    desc: '2015 年级别的历史大底，十年级别机会',
+    action: '投入剩余全部（计划的最后 3 成）',
+  },
+  {
+    id: 'buy',
+    threshold: 15,
+    label: '历史级买点',
+    emoji: '🟢',
+    desc: '2018 / 2020 / 2022 三次真买点都在此区间',
+    action: '重仓，投入计划的 3 成',
+  },
+  {
+    id: 'add',
+    threshold: 25,
+    label: '进入买点区间',
+    emoji: '🟡',
+    desc: '已覆盖历史所有买点的评分上限（最贵的一次是 26.5）',
+    action: '加仓，投入计划的 3 成',
+  },
+  {
+    id: 'entry',
+    threshold: 30,
+    label: '可以开始动手',
+    emoji: '🟠',
+    desc: '低于此值才值得买入，之前都算追高',
+    action: '小仓试水，投入计划的 2 成',
+  },
 ];
 
-// 各档位在「向坏」方向上的解除阈值（回升超过此值则重新武装）
+// 各档位回升多少分后重新武装（避免在阈值附近反复横跳时刷屏）
 const REARM_MARGIN = 5;
 
 function ensureDir() {
@@ -59,6 +91,12 @@ function checkRadar(snap) {
   // 首次运行：初始化各档位状态，不触发历史提醒
   const firstRun = st.lastScore === null;
   if (!st.armed) st.armed = {};
+
+  // 清理已废弃的档位 ID（例如早期版本的 watch / alert），避免状态文件里堆积无效键
+  const validIds = new Set(LEVELS.map((l) => l.id));
+  for (const key of Object.keys(st.armed)) {
+    if (!validIds.has(key)) delete st.armed[key];
+  }
 
   const fired = [];
   for (const lv of LEVELS) {

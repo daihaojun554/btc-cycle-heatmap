@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-23T17:12:26.733Z",
-  "tookMs": 2701,
+  "generatedAt": "2026-09-23T17:31:11.441Z",
+  "tookMs": 3681,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 968296,
+    "height": 968298,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
     "progressPct": 61.09,
-    "blocksRemaining": 81704,
-    "estimatedNow": "2026-09-26T22:40:00.000Z",
-    "fetchedAt": "2026-09-23T17:12:26.716Z"
+    "blocksRemaining": 81702,
+    "estimatedNow": "2026-09-26T23:00:00.000Z",
+    "fetchedAt": "2026-09-23T17:31:11.424Z"
   },
-  "spot": 83852.39,
+  "spot": 84056.45,
   "stats": {
     "weeks": 677,
     "from": "2013-10-03",
@@ -25,25 +25,25 @@
     "current": {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 83834.8,
+      "close": 84043.3,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.57,
-      "mayer": 1.18,
-      "trendDeviation": 0.716,
-      "score": 41.4,
+      "drawdownPct": -33.4,
+      "mayer": 1.19,
+      "trendDeviation": 0.718,
+      "score": 41.5,
       "sinceAthWeeks": 50
     },
-    "currentScorePercentile": 60.6,
+    "currentScorePercentile": 60.7,
     "scoreScale": {
       "min": 3.2,
       "max": 93.1
     },
     "trendFit": {
-      "a": -14.752584651476084,
-      "b": 5.201479965229678,
-      "sd": 0.273777780929568
+      "a": -14.752634239843868,
+      "b": 5.201494239084009,
+      "sd": 0.2737769404921347
     }
   },
   "signals": [
@@ -4976,7 +4976,7 @@
       "ath": 19660,
       "drawdownPct": -4.76,
       "mayer": 1.65,
-      "trendDeviation": 1.276,
+      "trendDeviation": 1.275,
       "score": 64.6,
       "sinceAthWeeks": 153
     },
@@ -5574,7 +5574,7 @@
       "ath": 64900,
       "drawdownPct": -11.59,
       "mayer": 1.27,
-      "trendDeviation": 2.694,
+      "trendDeviation": 2.693,
       "score": 66.1,
       "sinceAthWeeks": 26
     },
@@ -5600,7 +5600,7 @@
       "ath": 66982.2,
       "drawdownPct": -12.66,
       "mayer": 1.29,
-      "trendDeviation": 2.704,
+      "trendDeviation": 2.703,
       "score": 65.8,
       "sinceAthWeeks": 1
     },
@@ -5665,7 +5665,7 @@
       "ath": 68991,
       "drawdownPct": -17.04,
       "mayer": 1.23,
-      "trendDeviation": 2.545,
+      "trendDeviation": 2.544,
       "score": 62.8,
       "sinceAthWeeks": 3
     },
@@ -8265,7 +8265,7 @@
       "ath": 124420,
       "drawdownPct": -4.68,
       "mayer": 1.12,
-      "trendDeviation": 1.362,
+      "trendDeviation": 1.361,
       "score": 59.9,
       "sinceAthWeeks": 6
     },
@@ -8577,7 +8577,7 @@
       "ath": 126198.1,
       "drawdownPct": -43.52,
       "mayer": 0.76,
-      "trendDeviation": 0.711,
+      "trendDeviation": 0.71,
       "score": 32.7,
       "sinceAthWeeks": 23
     },
@@ -8916,20 +8916,20 @@
       "drawdownPct": -39.66,
       "mayer": 1.08,
       "trendDeviation": 0.654,
-      "score": 36.8,
+      "score": 36.7,
       "sinceAthWeeks": 49
     },
     {
       "t": 1789603200000,
       "date": "2026-09-17",
-      "close": 83834.8,
+      "close": 84043.3,
       "high": 87446.7,
       "low": 75936.5,
       "ath": 126198.1,
-      "drawdownPct": -33.57,
-      "mayer": 1.18,
-      "trendDeviation": 0.716,
-      "score": 41.4,
+      "drawdownPct": -33.4,
+      "mayer": 1.19,
+      "trendDeviation": 0.718,
+      "score": 41.5,
       "sinceAthWeeks": 50
     }
   ],
@@ -11158,11 +11158,11 @@
       "open": 78581.3,
       "high": 87395.67,
       "low": 74967.97,
-      "close": 83852.39,
+      "close": 84056.45,
       "isPartial": true,
       "days": 23,
       "prevClose": 78581.29,
-      "changePct": 6.71
+      "changePct": 6.97
     }
   ],
   "monthlyStats": {
@@ -11171,14 +11171,14 @@
     "to": "2026-09",
     "current": {
       "key": "2026-09",
-      "close": 83852.39,
+      "close": 84056.45,
       "prevClose": 78581.29,
-      "changePct": 6.71,
+      "changePct": 6.97,
       "isPartial": true,
       "high": 87395.67,
       "low": 74967.97,
       "days": 23,
-      "spot": 83852.39
+      "spot": 84056.45
     },
     "avgChange": 6.96,
     "upMonths": 84,
@@ -12985,8 +12985,8 @@
           "key": "2026-09",
           "year": 2026,
           "cycleYear": 2,
-          "price": 83852.39,
-          "norm": 81.9
+          "price": 84056.45,
+          "norm": 82.1
         }
       ],
       "yearSpans": [
@@ -13301,9 +13301,9 @@
         "req": "低于 25",
         "op": "lt",
         "threshold": 25,
-        "value": 41.4,
+        "value": 41.5,
         "pass": false,
-        "gap": 16.4
+        "gap": 16.5
       },
       {
         "id": "phase",
@@ -13329,9 +13329,9 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -33.57,
+        "value": -33.4,
         "pass": false,
-        "gap": 36.4
+        "gap": 36.6
       }
     ]
   },
@@ -13773,7 +13773,7 @@
           "score": 33.4,
           "drawdownPct": -42.4,
           "price": 72684.8,
-          "gain1y": 15
+          "gain1y": 16
         },
         {
           "date": "2026-04-02",
@@ -14250,46 +14250,50 @@
         "threshold": 8,
         "label": "极度低估",
         "emoji": "🟢",
-        "desc": "2015 年级别的历史大底"
+        "desc": "2015 年级别的历史大底，十年级别机会",
+        "action": "投入剩余全部（计划的最后 3 成）"
       },
       {
         "id": "buy",
         "threshold": 15,
         "label": "历史级买点",
         "emoji": "🟢",
-        "desc": "2018/2020/2022 三次真买点都在此区间"
+        "desc": "2018 / 2020 / 2022 三次真买点都在此区间",
+        "action": "重仓，投入计划的 3 成"
       },
       {
-        "id": "alert",
+        "id": "add",
         "threshold": 25,
-        "label": "接近买点",
+        "label": "进入买点区间",
         "emoji": "🟡",
-        "desc": "已覆盖历史所有买点的评分上限"
+        "desc": "已覆盖历史所有买点的评分上限（最贵的一次是 26.5）",
+        "action": "加仓，投入计划的 3 成"
       },
       {
-        "id": "watch",
-        "threshold": 35,
-        "label": "进入观察区",
+        "id": "entry",
+        "threshold": 30,
+        "label": "可以开始动手",
         "emoji": "🟠",
-        "desc": "开始留意，准备资金"
+        "desc": "低于此值才值得买入，之前都算追高",
+        "action": "小仓试水，投入计划的 2 成"
       }
     ],
     "distance": {
-      "current": 41.4,
-      "price": 83852.39,
+      "current": 41.5,
+      "price": 84056.45,
       "reachedLevel": null,
-      "nextLevel": "watch",
-      "toNext": 6.4,
-      "toBuy": 26.4,
-      "toAlert": 16.4
+      "nextLevel": "entry",
+      "toNext": 11.5,
+      "toBuy": 26.5,
+      "toAlert": 16.5
     },
     "armed": {
       "deep": true,
       "buy": true,
-      "alert": true,
-      "watch": true
+      "add": true,
+      "entry": true
     },
-    "lastCheck": "2026-09-23T17:12:29.877Z"
+    "lastCheck": "2026-09-23T17:31:15.096Z"
   },
   "backtest": {
     "months": 155,
