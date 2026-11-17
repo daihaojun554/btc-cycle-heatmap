@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-17T03:40:00.825Z",
-  "tookMs": 7143,
+  "generatedAt": "2026-11-17T13:04:07.262Z",
+  "tookMs": 7462,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 976213,
+    "height": 976275,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
-    "progressPct": 64.86,
-    "blocksRemaining": 73787,
-    "estimatedNow": "2026-11-20T22:10:00.000Z",
-    "fetchedAt": "2026-11-17T03:40:00.815Z"
+    "progressPct": 64.89,
+    "blocksRemaining": 73725,
+    "estimatedNow": "2026-11-21T08:30:00.000Z",
+    "fetchedAt": "2026-11-17T13:04:07.253Z"
   },
-  "spot": 65041,
+  "spot": 65058.4,
   "stats": {
     "weeks": 685,
     "from": "2013-10-03",
@@ -25,12 +25,12 @@
     "current": {
       "t": 1794441600000,
       "date": "2026-11-12",
-      "close": 64974.8,
+      "close": 64993.4,
       "high": 74115.6,
       "low": 61970.3,
       "ath": 126198.1,
-      "drawdownPct": -48.51,
-      "mayer": 0.89,
+      "drawdownPct": -48.5,
+      "mayer": 0.9,
       "trendDeviation": 0.539,
       "score": 29,
       "sinceAthWeeks": 58
@@ -41,9 +41,9 @@
       "max": 93.2
     },
     "trendFit": {
-      "a": -14.687287245647015,
-      "b": 5.1826904861404355,
-      "sd": 0.2728952679079414
+      "a": -14.687292856024264,
+      "b": 5.18269210020711,
+      "sd": 0.2728950892557673
     }
   },
   "signals": [
@@ -9026,12 +9026,12 @@
     {
       "t": 1794441600000,
       "date": "2026-11-12",
-      "close": 64974.8,
+      "close": 64993.4,
       "high": 74115.6,
       "low": 61970.3,
       "ath": 126198.1,
-      "drawdownPct": -48.51,
-      "mayer": 0.89,
+      "drawdownPct": -48.5,
+      "mayer": 0.9,
       "trendDeviation": 0.539,
       "score": 29,
       "sinceAthWeeks": 58
@@ -11292,11 +11292,11 @@
       "open": 77982.6,
       "high": 81200,
       "low": 62000,
-      "close": 65041,
+      "close": 65058.4,
       "isPartial": true,
       "days": 16,
       "prevClose": 77982.5,
-      "changePct": -16.6
+      "changePct": -16.57
     }
   ],
   "monthlyStats": {
@@ -11305,14 +11305,14 @@
     "to": "2026-11",
     "current": {
       "key": "2026-11",
-      "close": 65041,
+      "close": 65058.4,
       "prevClose": 77982.5,
-      "changePct": -16.6,
+      "changePct": -16.57,
       "isPartial": true,
       "high": 81200,
       "low": 62000,
       "days": 16,
-      "spot": 65041
+      "spot": 65058.4
     },
     "avgChange": 6.8,
     "upMonths": 83,
@@ -13135,7 +13135,7 @@
           "key": "2026-11",
           "year": 2026,
           "cycleYear": 2,
-          "price": 65041,
+          "price": 65058.4,
           "norm": 63.7
         }
       ],
@@ -13482,7 +13482,7 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -48.51,
+        "value": -48.5,
         "pass": false,
         "gap": 21.5
       }
@@ -13948,8 +13948,8 @@
           "date": "2026-11-12",
           "fng": 13,
           "score": 29,
-          "drawdownPct": -48.51,
-          "price": 64974.8,
+          "drawdownPct": -48.5,
+          "price": 64993.4,
           "gain1y": 0
         }
       ]
@@ -13982,7 +13982,7 @@
         "days": 5068,
         "from": "2013-01-01",
         "to": "2026-11-16",
-        "lagDays": 1
+        "lagDays": 2
       },
       "zones": [
         {
@@ -14441,7 +14441,7 @@
     ],
     "distance": {
       "current": 29,
-      "price": 65041,
+      "price": 65058.4,
       "reachedLevel": "entry",
       "nextLevel": "add",
       "toNext": 4,
@@ -14454,7 +14454,7 @@
       "add": true,
       "entry": false
     },
-    "lastCheck": "2026-11-17T03:40:01.925Z"
+    "lastCheck": "2026-11-17T13:04:08.281Z"
   },
   "backtest": {
     "months": 157,
@@ -15617,10 +15617,10 @@
   "dailyBrief": {
     "current": {
       "date": "2026-11-17",
-      "at": "2026-11-17T03:40:01.925Z",
-      "price": 65041,
+      "at": "2026-11-17T13:04:08.281Z",
+      "price": 65058,
       "score": 29,
-      "drawdownPct": -48.51,
+      "drawdownPct": -48.5,
       "mvrv": 1.212,
       "avgCost": 53583,
       "fng": 12,
@@ -15653,6 +15653,8 @@
         "价格跨过 $80,000 线"
       ],
       "gap": 4
-    }
+    },
+    "sent": true,
+    "sentAt": "2026-11-17T13:04:09.513Z"
   }
 }
