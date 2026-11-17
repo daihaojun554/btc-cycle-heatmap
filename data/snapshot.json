@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-16T20:16:05.690Z",
-  "tookMs": 5509,
+  "generatedAt": "2026-11-17T03:40:00.825Z",
+  "tookMs": 7143,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 976180,
+    "height": 976213,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
-    "progressPct": 64.85,
-    "blocksRemaining": 73820,
-    "estimatedNow": "2026-11-20T16:40:00.000Z",
-    "fetchedAt": "2026-11-16T20:16:05.677Z"
+    "progressPct": 64.86,
+    "blocksRemaining": 73787,
+    "estimatedNow": "2026-11-20T22:10:00.000Z",
+    "fetchedAt": "2026-11-17T03:40:00.815Z"
   },
-  "spot": 65026.6,
+  "spot": 65041,
   "stats": {
     "weeks": 685,
     "from": "2013-10-03",
@@ -25,13 +25,13 @@
     "current": {
       "t": 1794441600000,
       "date": "2026-11-12",
-      "close": 64958.6,
+      "close": 64974.8,
       "high": 74115.6,
       "low": 61970.3,
       "ath": 126198.1,
-      "drawdownPct": -48.53,
+      "drawdownPct": -48.51,
       "mayer": 0.89,
-      "trendDeviation": 0.538,
+      "trendDeviation": 0.539,
       "score": 29,
       "sinceAthWeeks": 58
     },
@@ -41,9 +41,9 @@
       "max": 93.2
     },
     "trendFit": {
-      "a": -14.68728235788068,
-      "b": 5.182689079963915,
-      "sd": 0.2728954236168806
+      "a": -14.687287245647015,
+      "b": 5.1826904861404355,
+      "sd": 0.2728952679079414
     }
   },
   "signals": [
@@ -9026,13 +9026,13 @@
     {
       "t": 1794441600000,
       "date": "2026-11-12",
-      "close": 64958.6,
+      "close": 64974.8,
       "high": 74115.6,
       "low": 61970.3,
       "ath": 126198.1,
-      "drawdownPct": -48.53,
+      "drawdownPct": -48.51,
       "mayer": 0.89,
-      "trendDeviation": 0.538,
+      "trendDeviation": 0.539,
       "score": 29,
       "sinceAthWeeks": 58
     }
@@ -11292,11 +11292,11 @@
       "open": 77982.6,
       "high": 81200,
       "low": 62000,
-      "close": 65026.6,
+      "close": 65041,
       "isPartial": true,
       "days": 16,
       "prevClose": 77982.5,
-      "changePct": -16.61
+      "changePct": -16.6
     }
   ],
   "monthlyStats": {
@@ -11305,14 +11305,14 @@
     "to": "2026-11",
     "current": {
       "key": "2026-11",
-      "close": 65026.6,
+      "close": 65041,
       "prevClose": 77982.5,
-      "changePct": -16.61,
+      "changePct": -16.6,
       "isPartial": true,
       "high": 81200,
       "low": 62000,
       "days": 16,
-      "spot": 65026.6
+      "spot": 65041
     },
     "avgChange": 6.8,
     "upMonths": 83,
@@ -13135,7 +13135,7 @@
           "key": "2026-11",
           "year": 2026,
           "cycleYear": 2,
-          "price": 65026.6,
+          "price": 65041,
           "norm": 63.7
         }
       ],
@@ -13482,7 +13482,7 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -48.53,
+        "value": -48.51,
         "pass": false,
         "gap": 21.5
       }
@@ -13491,17 +13491,17 @@
   "sentiment": {
     "fearGreed": {
       "current": {
-        "t": 1794787200000,
-        "date": "2026-11-16",
-        "value": 10,
+        "t": 1794873600000,
+        "date": "2026-11-17",
+        "value": 12,
         "label": "极度恐惧",
         "zone": "extreme-fear",
         "zoneLabel": "极度恐惧",
         "color": "#39d353",
         "advice": "历史上这是买点区域，可以分批建仓"
       },
-      "percentile": 2,
-      "streak": 3,
+      "percentile": 5,
+      "streak": 4,
       "stats": {
         "min": 5,
         "max": 95,
@@ -13510,9 +13510,9 @@
         "p25": 26,
         "p75": 65,
         "p90": 75,
-        "days": 3207,
+        "days": 3208,
         "from": "2018-02-01",
-        "to": "2026-11-16"
+        "to": "2026-11-17"
       },
       "zones": [
         {
@@ -13521,7 +13521,7 @@
           "label": "极度恐惧",
           "color": "#39d353",
           "advice": "历史上这是买点区域，可以分批建仓",
-          "count": 352
+          "count": 353
         },
         {
           "max": 40,
@@ -13557,18 +13557,14 @@
         }
       ],
       "lastExtremeFear": {
-        "date": "2026-11-16",
-        "value": 10
+        "date": "2026-11-17",
+        "value": 12
       },
       "lastExtremeGreed": {
         "date": "2025-01-22",
         "value": 84
       },
       "recent": [
-        {
-          "date": "2026-10-18",
-          "value": 53
-        },
         {
           "date": "2026-10-19",
           "value": 59
@@ -13684,6 +13680,10 @@
         {
           "date": "2026-11-16",
           "value": 10
+        },
+        {
+          "date": "2026-11-17",
+          "value": 12
         }
       ]
     },
@@ -13948,8 +13948,8 @@
           "date": "2026-11-12",
           "fng": 13,
           "score": 29,
-          "drawdownPct": -48.53,
-          "price": 64958.6,
+          "drawdownPct": -48.51,
+          "price": 64974.8,
           "gain1y": 0
         }
       ]
@@ -13958,19 +13958,19 @@
   "onchain": {
     "mvrv": {
       "current": {
-        "date": "2026-11-15",
-        "t": 1794700800000,
-        "mvrv": 1.214,
-        "price": 65189,
+        "date": "2026-11-16",
+        "t": 1794787200000,
+        "mvrv": 1.212,
+        "price": 64943,
         "zone": "value",
         "zoneLabel": "低估",
         "color": "#7ee787",
         "advice": "接近全网平均成本，风险较低",
-        "avgCost": 53698,
-        "unrealizedPnlPct": 21.4
+        "avgCost": 53583,
+        "unrealizedPnlPct": 21.2
       },
       "percentile": 19,
-      "streak": 18,
+      "streak": 19,
       "stats": {
         "min": 0.56,
         "max": 5.88,
@@ -13979,10 +13979,10 @@
         "p25": 1.3,
         "p75": 2.17,
         "p90": 2.69,
-        "days": 5067,
+        "days": 5068,
         "from": "2013-01-01",
-        "to": "2026-11-15",
-        "lagDays": 2
+        "to": "2026-11-16",
+        "lagDays": 1
       },
       "zones": [
         {
@@ -13999,7 +13999,7 @@
           "label": "低估",
           "color": "#7ee787",
           "advice": "接近全网平均成本，风险较低",
-          "count": 1345
+          "count": 1346
         },
         {
           "max": 2.2,
@@ -14041,10 +14041,6 @@
         "mvrv": 0.957
       },
       "recent": [
-        {
-          "date": "2026-08-18",
-          "mvrv": 1.229
-        },
         {
           "date": "2026-08-19",
           "mvrv": 1.315
@@ -14400,6 +14396,10 @@
         {
           "date": "2026-11-15",
           "mvrv": 1.214
+        },
+        {
+          "date": "2026-11-16",
+          "mvrv": 1.212
         }
       ]
     }
@@ -14441,7 +14441,7 @@
     ],
     "distance": {
       "current": 29,
-      "price": 65026.6,
+      "price": 65041,
       "reachedLevel": "entry",
       "nextLevel": "add",
       "toNext": 4,
@@ -14454,7 +14454,7 @@
       "add": true,
       "entry": false
     },
-    "lastCheck": "2026-11-16T20:16:07.149Z"
+    "lastCheck": "2026-11-17T03:40:01.925Z"
   },
   "backtest": {
     "months": 157,
@@ -15616,14 +15616,14 @@
   },
   "dailyBrief": {
     "current": {
-      "date": "2026-11-16",
-      "at": "2026-11-16T20:16:07.149Z",
-      "price": 65027,
+      "date": "2026-11-17",
+      "at": "2026-11-17T03:40:01.925Z",
+      "price": 65041,
       "score": 29,
-      "drawdownPct": -48.53,
-      "mvrv": 1.214,
-      "avgCost": 53698,
-      "fng": 10,
+      "drawdownPct": -48.51,
+      "mvrv": 1.212,
+      "avgCost": 53583,
+      "fng": 12,
       "fngLabel": "极度恐惧",
       "phase": "盘整期",
       "cycleLabel": "2025-2028",
@@ -15648,7 +15648,7 @@
         "评分 -12.5",
         "价格 -22.6%",
         "MVRV -0.40",
-        "情绪 -61",
+        "情绪 -59",
         "评分跨过 40 分线",
         "价格跨过 $80,000 线"
       ],
