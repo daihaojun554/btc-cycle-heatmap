@@ -2,9 +2,9 @@
   "armed": {
     "deep": true,
     "buy": true,
-    "add": true,
+    "add": false,
     "entry": false
   },
-  "lastScore": 27,
-  "lastCheck": "2026-11-20T11:17:12.647Z"
+  "lastScore": 24.9,
+  "lastCheck": "2026-11-20T19:57:26.840Z"
 }
