@@ -1,22 +1,24 @@
 {
-  "generatedAt": "2026-11-22T19:26:26.361Z",
-  "tookMs": 6869,
+  "generatedAt": "2026-11-23T00:44:12.921Z",
+  "tookMs": 7211,
   "stale": false,
   "source": "kraken",
-  "warnings": [],
+  "warnings": [
+    "MVRV 失败: This operation was aborted"
+  ],
   "halving": {
-    "height": 977090,
+    "height": 977126,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
-    "progressPct": 65.28,
-    "blocksRemaining": 72910,
-    "estimatedNow": "2026-11-27T00:20:00.000Z",
-    "fetchedAt": "2026-11-22T19:26:26.348Z"
+    "progressPct": 65.3,
+    "blocksRemaining": 72874,
+    "estimatedNow": "2026-11-27T06:20:00.000Z",
+    "fetchedAt": "2026-11-23T00:44:12.905Z"
   },
-  "spot": 60731.8,
+  "spot": 61214.2,
   "stats": {
     "weeks": 686,
     "from": "2013-10-03",
@@ -25,25 +27,25 @@
     "current": {
       "t": 1795046400000,
       "date": "2026-11-19",
-      "close": 60631.1,
+      "close": 61140.4,
       "high": 64014.3,
       "low": 55100,
       "ath": 126198.1,
-      "drawdownPct": -51.96,
-      "mayer": 0.84,
-      "trendDeviation": 0.501,
-      "score": 26.3,
+      "drawdownPct": -51.55,
+      "mayer": 0.85,
+      "trendDeviation": 0.506,
+      "score": 26.6,
       "sinceAthWeeks": 59
     },
-    "currentScorePercentile": 31.3,
+    "currentScorePercentile": 32.1,
     "scoreScale": {
       "min": 3.2,
       "max": 93.2
     },
     "trendFit": {
-      "a": -14.673117276498775,
-      "b": 5.17861414369594,
-      "sd": 0.2729573607292475
+      "a": -14.673280867811393,
+      "b": 5.178661204652457,
+      "sd": 0.2729515791895546
     }
   },
   "signals": [
@@ -124,8 +126,8 @@
       "i": 685,
       "date": "2026-11-19",
       "price": 55100,
-      "close": 60631.1,
-      "score": 26.3,
+      "close": 61140.4,
+      "score": 26.6,
       "confirmed": false,
       "pending": true
     }
@@ -218,7 +220,7 @@
       "ath": 4000,
       "drawdownPct": -85.2,
       "mayer": null,
-      "trendDeviation": 4.146,
+      "trendDeviation": 4.147,
       "score": 44.2,
       "sinceAthWeeks": 1
     },
@@ -608,7 +610,7 @@
       "ath": 4000,
       "drawdownPct": -84.85,
       "mayer": 0.94,
-      "trendDeviation": 2.379,
+      "trendDeviation": 2.38,
       "score": 30.7,
       "sinceAthWeeks": 31
     },
@@ -764,7 +766,7 @@
       "ath": 4000,
       "drawdownPct": -88.13,
       "mayer": 0.85,
-      "trendDeviation": 1.505,
+      "trendDeviation": 1.506,
       "score": 23.4,
       "sinceAthWeeks": 43
     },
@@ -2961,7 +2963,7 @@
       "ath": 13850,
       "drawdownPct": -0.81,
       "mayer": 2.97,
-      "trendDeviation": 4.191,
+      "trendDeviation": 4.19,
       "score": 93.2,
       "sinceAthWeeks": 0
     },
@@ -3429,7 +3431,7 @@
       "ath": 19660,
       "drawdownPct": -68.11,
       "mayer": 0.79,
-      "trendDeviation": 1.3,
+      "trendDeviation": 1.299,
       "score": 29.4,
       "sinceAthWeeks": 34
     },
@@ -4885,7 +4887,7 @@
       "ath": 19660,
       "drawdownPct": -45.73,
       "mayer": 1.11,
-      "trendDeviation": 0.778,
+      "trendDeviation": 0.777,
       "score": 36.5,
       "sinceAthWeeks": 146
     },
@@ -4950,7 +4952,7 @@
       "ath": 19660,
       "drawdownPct": -20.1,
       "mayer": 1.46,
-      "trendDeviation": 1.098,
+      "trendDeviation": 1.097,
       "score": 54.7,
       "sinceAthWeeks": 151
     },
@@ -5158,7 +5160,7 @@
       "ath": 58339,
       "drawdownPct": -13.61,
       "mayer": 2.16,
-      "trendDeviation": 3.085,
+      "trendDeviation": 3.084,
       "score": 76.1,
       "sinceAthWeeks": 1
     },
@@ -5262,7 +5264,7 @@
       "ath": 64900,
       "drawdownPct": -15.41,
       "mayer": 1.53,
-      "trendDeviation": 3.149,
+      "trendDeviation": 3.148,
       "score": 69,
       "sinceAthWeeks": 2
     },
@@ -5327,7 +5329,7 @@
       "ath": 64900,
       "drawdownPct": -42.12,
       "mayer": 0.91,
-      "trendDeviation": 2.07,
+      "trendDeviation": 2.069,
       "score": 46.7,
       "sinceAthWeeks": 7
     },
@@ -5926,7 +5928,7 @@
       "drawdownPct": -40.04,
       "mayer": 0.85,
       "trendDeviation": 1.597,
-      "score": 44.2,
+      "score": 44.1,
       "sinceAthWeeks": 23
     },
     {
@@ -7251,7 +7253,7 @@
       "ath": 73734,
       "drawdownPct": -10.5,
       "mayer": 1.48,
-      "trendDeviation": 1.251,
+      "trendDeviation": 1.25,
       "score": 60.3,
       "sinceAthWeeks": 2
     },
@@ -7550,7 +7552,7 @@
       "ath": 73734,
       "drawdownPct": -22.22,
       "mayer": 0.9,
-      "trendDeviation": 0.938,
+      "trendDeviation": 0.937,
       "score": 46.2,
       "sinceAthWeeks": 25
     },
@@ -7563,7 +7565,7 @@
       "ath": 73734,
       "drawdownPct": -16.22,
       "mayer": 0.97,
-      "trendDeviation": 1.004,
+      "trendDeviation": 1.003,
       "score": 50.2,
       "sinceAthWeeks": 26
     },
@@ -7758,7 +7760,7 @@
       "ath": 108297.6,
       "drawdownPct": -12.85,
       "mayer": 1.31,
-      "trendDeviation": 1.396,
+      "trendDeviation": 1.395,
       "score": 58.8,
       "sinceAthWeeks": 2
     },
@@ -9039,14 +9041,14 @@
     {
       "t": 1795046400000,
       "date": "2026-11-19",
-      "close": 60631.1,
+      "close": 61140.4,
       "high": 64014.3,
       "low": 55100,
       "ath": 126198.1,
-      "drawdownPct": -51.96,
-      "mayer": 0.84,
-      "trendDeviation": 0.501,
-      "score": 26.3,
+      "drawdownPct": -51.55,
+      "mayer": 0.85,
+      "trendDeviation": 0.506,
+      "score": 26.6,
       "sinceAthWeeks": 59
     }
   ],
@@ -11305,11 +11307,11 @@
       "open": 77982.6,
       "high": 81200,
       "low": 55134,
-      "close": 60731.8,
+      "close": 61214.2,
       "isPartial": true,
       "days": 22,
       "prevClose": 77982.5,
-      "changePct": -22.12
+      "changePct": -21.5
     }
   ],
   "monthlyStats": {
@@ -11318,14 +11320,14 @@
     "to": "2026-11",
     "current": {
       "key": "2026-11",
-      "close": 60731.8,
+      "close": 61214.2,
       "prevClose": 77982.5,
-      "changePct": -22.12,
+      "changePct": -21.5,
       "isPartial": true,
       "high": 81200,
       "low": 55134,
       "days": 22,
-      "spot": 60731.8
+      "spot": 61214.2
     },
     "avgChange": 6.77,
     "upMonths": 83,
@@ -11569,10 +11571,10 @@
       "bottom": {
         "date": "2026-11-19",
         "month": "2026-11",
-        "score": 26.3,
+        "score": 26.6,
         "price": 55100,
         "anchorDate": "2026-11-19",
-        "anchorScore": 26.3
+        "anchorScore": 26.6
       },
       "phases": [
         {
@@ -11637,10 +11639,10 @@
     "bottom": {
       "date": "2026-11-19",
       "month": "2026-11",
-      "score": 26.3,
+      "score": 26.6,
       "price": 55100,
       "anchorDate": "2026-11-19",
-      "anchorScore": 26.3
+      "anchorScore": 26.6
     },
     "phases": [
       {
@@ -13134,8 +13136,8 @@
           "key": "2026-11",
           "year": 2026,
           "cycleYear": 2,
-          "price": 60731.8,
-          "norm": 59.5
+          "price": 61214.2,
+          "norm": 60
         }
       ],
       "yearSpans": [
@@ -13354,15 +13356,15 @@
       {
         "date": "2026-11-19",
         "price": 55100,
-        "score": 26.3,
-        "drawdownPct": -51.96,
+        "score": 26.6,
+        "drawdownPct": -51.55,
         "confirmed": false,
         "cycleLabel": "2025-2028",
         "cycleIndex": 4,
         "phaseId": "fall",
         "phaseName": "下跌期",
         "monthInCycle": 23,
-        "normPrice": 59.5,
+        "normPrice": 60,
         "gain3m": null,
         "gain6m": null,
         "gain1y": null,
@@ -13398,7 +13400,7 @@
     "forbiddenPhaseCount": 0,
     "scoreRange": {
       "min": 3.2,
-      "max": 26.3,
+      "max": 26.6,
       "median": 15.5
     },
     "monthRange": {
@@ -13450,9 +13452,9 @@
         "req": "低于 25",
         "op": "lt",
         "threshold": 25,
-        "value": 26.3,
+        "value": 26.6,
         "pass": false,
-        "gap": 1.3
+        "gap": 1.6
       },
       {
         "id": "phase",
@@ -13478,17 +13480,17 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -51.96,
+        "value": -51.55,
         "pass": false,
-        "gap": 18
+        "gap": 18.5
       }
     ]
   },
   "sentiment": {
     "fearGreed": {
       "current": {
-        "t": 1795305600000,
-        "date": "2026-11-22",
+        "t": 1795392000000,
+        "date": "2026-11-23",
         "value": 11,
         "label": "极度恐惧",
         "zone": "extreme-fear",
@@ -13496,8 +13498,8 @@
         "color": "#39d353",
         "advice": "历史上这是买点区域，可以分批建仓"
       },
-      "percentile": 3,
-      "streak": 9,
+      "percentile": 4,
+      "streak": 10,
       "stats": {
         "min": 5,
         "max": 95,
@@ -13506,9 +13508,9 @@
         "p25": 26,
         "p75": 65,
         "p90": 75,
-        "days": 3213,
+        "days": 3214,
         "from": "2018-02-01",
-        "to": "2026-11-22"
+        "to": "2026-11-23"
       },
       "zones": [
         {
@@ -13517,7 +13519,7 @@
           "label": "极度恐惧",
           "color": "#39d353",
           "advice": "历史上这是买点区域，可以分批建仓",
-          "count": 358
+          "count": 359
         },
         {
           "max": 40,
@@ -13553,7 +13555,7 @@
         }
       ],
       "lastExtremeFear": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "value": 11
       },
       "lastExtremeGreed": {
@@ -13561,10 +13563,6 @@
         "value": 84
       },
       "recent": [
-        {
-          "date": "2026-10-24",
-          "value": 51
-        },
         {
           "date": "2026-10-25",
           "value": 54
@@ -13679,6 +13677,10 @@
         },
         {
           "date": "2026-11-22",
+          "value": 11
+        },
+        {
+          "date": "2026-11-23",
           "value": 11
         }
       ]
@@ -13906,7 +13908,7 @@
           "score": 41.2,
           "drawdownPct": -31.69,
           "price": 86207.8,
-          "gain1y": -30
+          "gain1y": -29
         },
         {
           "date": "2026-01-29",
@@ -13914,7 +13916,7 @@
           "score": 33.6,
           "drawdownPct": -42.14,
           "price": 73013.6,
-          "gain1y": -17
+          "gain1y": -16
         },
         {
           "date": "2026-02-26",
@@ -13922,7 +13924,7 @@
           "score": 33.7,
           "drawdownPct": -42.4,
           "price": 72684.8,
-          "gain1y": -17
+          "gain1y": -16
         },
         {
           "date": "2026-04-02",
@@ -13930,7 +13932,7 @@
           "score": 33.1,
           "drawdownPct": -43.65,
           "price": 71109,
-          "gain1y": -15
+          "gain1y": -14
         },
         {
           "date": "2026-05-28",
@@ -13946,460 +13948,12 @@
           "score": 27.8,
           "drawdownPct": -50.09,
           "price": 62984.6,
-          "gain1y": -4
+          "gain1y": -3
         }
       ]
     }
   },
-  "onchain": {
-    "mvrv": {
-      "current": {
-        "date": "2026-11-21",
-        "t": 1795219200000,
-        "mvrv": 1.13,
-        "price": 60123,
-        "zone": "value",
-        "zoneLabel": "低估",
-        "color": "#7ee787",
-        "advice": "接近全网平均成本，风险较低",
-        "avgCost": 53206,
-        "unrealizedPnlPct": 13
-      },
-      "percentile": 15,
-      "streak": 24,
-      "stats": {
-        "min": 0.56,
-        "max": 5.88,
-        "median": 1.69,
-        "p10": 0.94,
-        "p25": 1.29,
-        "p75": 2.17,
-        "p90": 2.69,
-        "days": 5073,
-        "from": "2013-01-01",
-        "to": "2026-11-21",
-        "lagDays": 2
-      },
-      "zones": [
-        {
-          "max": 1,
-          "id": "deep-value",
-          "label": "深度低估",
-          "color": "#39d353",
-          "advice": "全体持币者平均亏损，历史上这是周期大底",
-          "count": 622
-        },
-        {
-          "max": 1.5,
-          "id": "value",
-          "label": "低估",
-          "color": "#7ee787",
-          "advice": "接近全网平均成本，风险较低",
-          "count": 1351
-        },
-        {
-          "max": 2.2,
-          "id": "neutral",
-          "label": "中性",
-          "color": "#d29922",
-          "advice": "有浮盈但不极端，属于周期中段",
-          "count": 1893
-        },
-        {
-          "max": 3,
-          "id": "expensive",
-          "label": "高估",
-          "color": "#e3813a",
-          "advice": "平均浮盈超 100%，注意风险",
-          "count": 914
-        },
-        {
-          "max": null,
-          "id": "bubble",
-          "label": "泡沫区",
-          "color": "#f85149",
-          "advice": "历史上这是周期顶部区域，建议分批止盈",
-          "count": 293
-        }
-      ],
-      "cheapest": {
-        "date": "2015-01-14",
-        "mvrv": 0.564,
-        "price": 176
-      },
-      "priciest": {
-        "date": "2013-11-18",
-        "mvrv": 5.884,
-        "price": 658
-      },
-      "lastBelowCost": {
-        "date": "2023-01-12",
-        "mvrv": 0.957
-      },
-      "recent": [
-        {
-          "date": "2026-08-24",
-          "mvrv": 1.491
-        },
-        {
-          "date": "2026-08-25",
-          "mvrv": 1.484
-        },
-        {
-          "date": "2026-08-26",
-          "mvrv": 1.49
-        },
-        {
-          "date": "2026-08-27",
-          "mvrv": 1.514
-        },
-        {
-          "date": "2026-08-28",
-          "mvrv": 1.465
-        },
-        {
-          "date": "2026-08-29",
-          "mvrv": 1.475
-        },
-        {
-          "date": "2026-08-30",
-          "mvrv": 1.464
-        },
-        {
-          "date": "2026-08-31",
-          "mvrv": 1.48
-        },
-        {
-          "date": "2026-09-01",
-          "mvrv": 1.458
-        },
-        {
-          "date": "2026-09-02",
-          "mvrv": 1.454
-        },
-        {
-          "date": "2026-09-03",
-          "mvrv": 1.529
-        },
-        {
-          "date": "2026-09-04",
-          "mvrv": 1.499
-        },
-        {
-          "date": "2026-09-05",
-          "mvrv": 1.501
-        },
-        {
-          "date": "2026-09-06",
-          "mvrv": 1.51
-        },
-        {
-          "date": "2026-09-07",
-          "mvrv": 1.487
-        },
-        {
-          "date": "2026-09-08",
-          "mvrv": 1.475
-        },
-        {
-          "date": "2026-09-09",
-          "mvrv": 1.47
-        },
-        {
-          "date": "2026-09-10",
-          "mvrv": 1.441
-        },
-        {
-          "date": "2026-09-11",
-          "mvrv": 1.451
-        },
-        {
-          "date": "2026-09-12",
-          "mvrv": 1.452
-        },
-        {
-          "date": "2026-09-13",
-          "mvrv": 1.443
-        },
-        {
-          "date": "2026-09-14",
-          "mvrv": 1.471
-        },
-        {
-          "date": "2026-09-15",
-          "mvrv": 1.422
-        },
-        {
-          "date": "2026-09-16",
-          "mvrv": 1.43
-        },
-        {
-          "date": "2026-09-17",
-          "mvrv": 1.436
-        },
-        {
-          "date": "2026-09-18",
-          "mvrv": 1.52
-        },
-        {
-          "date": "2026-09-19",
-          "mvrv": 1.526
-        },
-        {
-          "date": "2026-09-20",
-          "mvrv": 1.524
-        },
-        {
-          "date": "2026-09-21",
-          "mvrv": 1.621
-        },
-        {
-          "date": "2026-09-22",
-          "mvrv": 1.612
-        },
-        {
-          "date": "2026-09-23",
-          "mvrv": 1.579
-        },
-        {
-          "date": "2026-09-24",
-          "mvrv": 1.577
-        },
-        {
-          "date": "2026-09-25",
-          "mvrv": 1.57
-        },
-        {
-          "date": "2026-09-26",
-          "mvrv": 1.576
-        },
-        {
-          "date": "2026-09-27",
-          "mvrv": 1.576
-        },
-        {
-          "date": "2026-09-28",
-          "mvrv": 1.559
-        },
-        {
-          "date": "2026-09-29",
-          "mvrv": 1.561
-        },
-        {
-          "date": "2026-09-30",
-          "mvrv": 1.559
-        },
-        {
-          "date": "2026-10-01",
-          "mvrv": 1.581
-        },
-        {
-          "date": "2026-10-02",
-          "mvrv": 1.575
-        },
-        {
-          "date": "2026-10-03",
-          "mvrv": 1.579
-        },
-        {
-          "date": "2026-10-04",
-          "mvrv": 1.611
-        },
-        {
-          "date": "2026-10-05",
-          "mvrv": 1.597
-        },
-        {
-          "date": "2026-10-06",
-          "mvrv": 1.591
-        },
-        {
-          "date": "2026-10-07",
-          "mvrv": 1.548
-        },
-        {
-          "date": "2026-10-08",
-          "mvrv": 1.519
-        },
-        {
-          "date": "2026-10-09",
-          "mvrv": 1.534
-        },
-        {
-          "date": "2026-10-10",
-          "mvrv": 1.541
-        },
-        {
-          "date": "2026-10-11",
-          "mvrv": 1.553
-        },
-        {
-          "date": "2026-10-12",
-          "mvrv": 1.519
-        },
-        {
-          "date": "2026-10-13",
-          "mvrv": 1.544
-        },
-        {
-          "date": "2026-10-14",
-          "mvrv": 1.514
-        },
-        {
-          "date": "2026-10-15",
-          "mvrv": 1.525
-        },
-        {
-          "date": "2026-10-16",
-          "mvrv": 1.514
-        },
-        {
-          "date": "2026-10-17",
-          "mvrv": 1.509
-        },
-        {
-          "date": "2026-10-18",
-          "mvrv": 1.521
-        },
-        {
-          "date": "2026-10-19",
-          "mvrv": 1.52
-        },
-        {
-          "date": "2026-10-20",
-          "mvrv": 1.538
-        },
-        {
-          "date": "2026-10-21",
-          "mvrv": 1.56
-        },
-        {
-          "date": "2026-10-22",
-          "mvrv": 1.503
-        },
-        {
-          "date": "2026-10-23",
-          "mvrv": 1.497
-        },
-        {
-          "date": "2026-10-24",
-          "mvrv": 1.493
-        },
-        {
-          "date": "2026-10-25",
-          "mvrv": 1.48
-        },
-        {
-          "date": "2026-10-26",
-          "mvrv": 1.478
-        },
-        {
-          "date": "2026-10-27",
-          "mvrv": 1.494
-        },
-        {
-          "date": "2026-10-28",
-          "mvrv": 1.502
-        },
-        {
-          "date": "2026-10-29",
-          "mvrv": 1.447
-        },
-        {
-          "date": "2026-10-30",
-          "mvrv": 1.427
-        },
-        {
-          "date": "2026-10-31",
-          "mvrv": 1.433
-        },
-        {
-          "date": "2026-11-01",
-          "mvrv": 1.447
-        },
-        {
-          "date": "2026-11-02",
-          "mvrv": 1.42
-        },
-        {
-          "date": "2026-11-03",
-          "mvrv": 1.438
-        },
-        {
-          "date": "2026-11-04",
-          "mvrv": 1.49
-        },
-        {
-          "date": "2026-11-05",
-          "mvrv": 1.404
-        },
-        {
-          "date": "2026-11-06",
-          "mvrv": 1.405
-        },
-        {
-          "date": "2026-11-07",
-          "mvrv": 1.404
-        },
-        {
-          "date": "2026-11-08",
-          "mvrv": 1.39
-        },
-        {
-          "date": "2026-11-09",
-          "mvrv": 1.394
-        },
-        {
-          "date": "2026-11-10",
-          "mvrv": 1.367
-        },
-        {
-          "date": "2026-11-11",
-          "mvrv": 1.37
-        },
-        {
-          "date": "2026-11-12",
-          "mvrv": 1.324
-        },
-        {
-          "date": "2026-11-13",
-          "mvrv": 1.267
-        },
-        {
-          "date": "2026-11-14",
-          "mvrv": 1.188
-        },
-        {
-          "date": "2026-11-15",
-          "mvrv": 1.214
-        },
-        {
-          "date": "2026-11-16",
-          "mvrv": 1.212
-        },
-        {
-          "date": "2026-11-17",
-          "mvrv": 1.212
-        },
-        {
-          "date": "2026-11-18",
-          "mvrv": 1.176
-        },
-        {
-          "date": "2026-11-19",
-          "mvrv": 1.159
-        },
-        {
-          "date": "2026-11-20",
-          "mvrv": 1.105
-        },
-        {
-          "date": "2026-11-21",
-          "mvrv": 1.13
-        }
-      ]
-    }
-  },
+  "onchain": null,
   "radar": {
     "levels": [
       {
@@ -14436,13 +13990,13 @@
       }
     ],
     "distance": {
-      "current": 26.3,
-      "price": 60731.8,
+      "current": 26.6,
+      "price": 61214.2,
       "reachedLevel": "entry",
       "nextLevel": "add",
-      "toNext": 1.3,
-      "toBuy": 11.3,
-      "toAlert": 1.3
+      "toNext": 1.6,
+      "toBuy": 11.6,
+      "toAlert": 1.6
     },
     "armed": {
       "deep": true,
@@ -14450,7 +14004,7 @@
       "add": false,
       "entry": false
     },
-    "lastCheck": "2026-11-22T19:26:27.091Z"
+    "lastCheck": "2026-11-23T00:44:43.169Z"
   },
   "backtest": {
     "months": 157,
@@ -15218,7 +14772,7 @@
       },
       {
         "month": "2022-04",
-        "score": 43.1,
+        "score": 43,
         "amount": 50,
         "price": 38490.7,
         "mult": 0.5
@@ -15612,13 +15166,13 @@
   },
   "dailyBrief": {
     "current": {
-      "date": "2026-11-22",
-      "at": "2026-11-22T19:26:27.092Z",
-      "price": 60732,
-      "score": 26.3,
-      "drawdownPct": -51.96,
-      "mvrv": 1.13,
-      "avgCost": 53206,
+      "date": "2026-11-23",
+      "at": "2026-11-23T00:44:43.169Z",
+      "price": 61214,
+      "score": 26.6,
+      "drawdownPct": -51.55,
+      "mvrv": null,
+      "avgCost": null,
       "fng": 11,
       "fngLabel": "极度恐惧",
       "phase": "下跌期",
@@ -15641,15 +15195,16 @@
     },
     "change": {
       "reasons": [
-        "评分 -15.2",
-        "价格 -27.7%",
-        "MVRV -0.48",
+        "评分 -14.9",
+        "价格 -27.1%",
         "情绪 -60",
         "评分跨过 40 分线",
         "价格跨过 $80,000 线",
-        "距「进入买点区间」仅剩 1.3 分"
+        "距「进入买点区间」仅剩 1.6 分"
       ],
-      "gap": 1.3000000000000007
-    }
+      "gap": 1.6000000000000014
+    },
+    "sent": true,
+    "sentAt": "2026-11-23T00:44:44.350Z"
   }
 }
