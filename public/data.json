@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-24T05:52:28.848Z",
-  "tookMs": 7450,
+  "generatedAt": "2026-11-24T17:27:46.843Z",
+  "tookMs": 4986,
   "stale": false,
   "source": "kraken",
   "warnings": [],
   "halving": {
-    "height": 977329,
+    "height": 977393,
     "epoch": 1,
     "lastHalvingHeight": 840000,
     "lastHalvingDate": "2024-04-19",
     "nextHalvingHeight": 1050000,
     "nextHalvingEta": "2028-04-16",
-    "progressPct": 65.39,
-    "blocksRemaining": 72671,
-    "estimatedNow": "2026-11-28T16:10:00.000Z",
-    "fetchedAt": "2026-11-24T05:52:28.833Z"
+    "progressPct": 65.43,
+    "blocksRemaining": 72607,
+    "estimatedNow": "2026-11-29T02:50:00.000Z",
+    "fetchedAt": "2026-11-24T17:27:46.833Z"
   },
-  "spot": 60659.9,
+  "spot": 59852,
   "stats": {
     "weeks": 686,
     "from": "2013-10-03",
@@ -25,25 +25,25 @@
     "current": {
       "t": 1795046400000,
       "date": "2026-11-19",
-      "close": 60570.6,
+      "close": 59767.1,
       "high": 64520.3,
       "low": 55100,
       "ath": 126198.1,
-      "drawdownPct": -52,
-      "mayer": 0.84,
-      "trendDeviation": 0.501,
-      "score": 26.2,
+      "drawdownPct": -52.64,
+      "mayer": 0.83,
+      "trendDeviation": 0.494,
+      "score": 25.7,
       "sinceAthWeeks": 59
     },
-    "currentScorePercentile": 31.2,
+    "currentScorePercentile": 30.6,
     "scoreScale": {
       "min": 3.2,
       "max": 93.2
     },
     "trendFit": {
-      "a": -14.673097752157776,
-      "b": 5.17860852705195,
-      "sd": 0.2729580554250348
+      "a": -14.672836583947419,
+      "b": 5.178533395765364,
+      "sd": 0.2729674439889331
     }
   },
   "signals": [
@@ -124,8 +124,8 @@
       "i": 685,
       "date": "2026-11-19",
       "price": 55100,
-      "close": 60570.6,
-      "score": 26.2,
+      "close": 59767.1,
+      "score": 25.7,
       "confirmed": false,
       "pending": true
     }
@@ -270,7 +270,7 @@
       "ath": 4000,
       "drawdownPct": -86.8,
       "mayer": null,
-      "trendDeviation": 3.412,
+      "trendDeviation": 3.411,
       "score": 40.5,
       "sinceAthWeeks": 5
     },
@@ -335,7 +335,7 @@
       "ath": 4000,
       "drawdownPct": -79.23,
       "mayer": null,
-      "trendDeviation": 4.86,
+      "trendDeviation": 4.859,
       "score": 49.9,
       "sinceAthWeeks": 10
     },
@@ -348,7 +348,7 @@
       "ath": 4000,
       "drawdownPct": -80.13,
       "mayer": null,
-      "trendDeviation": 4.56,
+      "trendDeviation": 4.559,
       "score": 48.4,
       "sinceAthWeeks": 11
     },
@@ -374,7 +374,7 @@
       "ath": 4000,
       "drawdownPct": -83.23,
       "mayer": null,
-      "trendDeviation": 3.699,
+      "trendDeviation": 3.698,
       "score": 43.6,
       "sinceAthWeeks": 13
     },
@@ -699,7 +699,7 @@
       "ath": 4000,
       "drawdownPct": -85.52,
       "mayer": 0.97,
-      "trendDeviation": 2.005,
+      "trendDeviation": 2.004,
       "score": 28.9,
       "sinceAthWeeks": 38
     },
@@ -1063,7 +1063,7 @@
       "ath": 4000,
       "drawdownPct": -94.1,
       "mayer": 0.64,
-      "trendDeviation": 0.508,
+      "trendDeviation": 0.507,
       "score": 6.6,
       "sinceAthWeeks": 66
     },
@@ -2857,7 +2857,7 @@
       "ath": 4965,
       "drawdownPct": -2.87,
       "mayer": 1.73,
-      "trendDeviation": 1.609,
+      "trendDeviation": 1.61,
       "score": 69,
       "sinceAthWeeks": 5
     },
@@ -3364,8 +3364,8 @@
       "ath": 19660,
       "drawdownPct": -67.56,
       "mayer": 0.7,
-      "trendDeviation": 1.392,
-      "score": 29.5,
+      "trendDeviation": 1.393,
+      "score": 29.6,
       "sinceAthWeeks": 29
     },
     {
@@ -4040,7 +4040,7 @@
       "ath": 19660,
       "drawdownPct": -38.47,
       "mayer": 2.04,
-      "trendDeviation": 1.575,
+      "trendDeviation": 1.576,
       "score": 57,
       "sinceAthWeeks": 81
     },
@@ -4092,7 +4092,7 @@
       "ath": 19660,
       "drawdownPct": -39.15,
       "mayer": 1.75,
-      "trendDeviation": 1.5,
+      "trendDeviation": 1.501,
       "score": 53.2,
       "sinceAthWeeks": 85
     },
@@ -4248,7 +4248,7 @@
       "ath": 19660,
       "drawdownPct": -53.38,
       "mayer": 1.02,
-      "trendDeviation": 1.028,
+      "trendDeviation": 1.029,
       "score": 35.4,
       "sinceAthWeeks": 97
     },
@@ -4703,7 +4703,7 @@
       "ath": 19660,
       "drawdownPct": -53.03,
       "mayer": 1.09,
-      "trendDeviation": 0.758,
+      "trendDeviation": 0.759,
       "score": 33,
       "sinceAthWeeks": 132
     },
@@ -4807,7 +4807,7 @@
       "ath": 19660,
       "drawdownPct": -41.66,
       "mayer": 1.26,
-      "trendDeviation": 0.879,
+      "trendDeviation": 0.88,
       "score": 41.1,
       "sinceAthWeeks": 140
     },
@@ -4820,7 +4820,7 @@
       "ath": 19660,
       "drawdownPct": -42.03,
       "mayer": 1.24,
-      "trendDeviation": 0.866,
+      "trendDeviation": 0.867,
       "score": 40.6,
       "sinceAthWeeks": 141
     },
@@ -5210,7 +5210,7 @@
       "ath": 61724.6,
       "drawdownPct": -4.76,
       "mayer": 1.99,
-      "trendDeviation": 3.482,
+      "trendDeviation": 3.483,
       "score": 79.3,
       "sinceAthWeeks": 2
     },
@@ -5652,7 +5652,7 @@
       "ath": 68991,
       "drawdownPct": -17.09,
       "mayer": 1.24,
-      "trendDeviation": 2.589,
+      "trendDeviation": 2.59,
       "score": 63.1,
       "sinceAthWeeks": 2
     },
@@ -5704,7 +5704,7 @@
       "ath": 68991,
       "drawdownPct": -29.52,
       "mayer": 1.02,
-      "trendDeviation": 2.134,
+      "trendDeviation": 2.135,
       "score": 53.5,
       "sinceAthWeeks": 6
     },
@@ -5717,7 +5717,7 @@
       "ath": 68991,
       "drawdownPct": -32.64,
       "mayer": 0.97,
-      "trendDeviation": 2.024,
+      "trendDeviation": 2.025,
       "score": 51.1,
       "sinceAthWeeks": 7
     },
@@ -5952,7 +5952,7 @@
       "drawdownPct": -42.48,
       "mayer": 0.84,
       "trendDeviation": 1.509,
-      "score": 42.3,
+      "score": 42.4,
       "sinceAthWeeks": 25
     },
     {
@@ -6081,7 +6081,7 @@
       "ath": 68991,
       "drawdownPct": -70.67,
       "mayer": 0.56,
-      "trendDeviation": 0.714,
+      "trendDeviation": 0.715,
       "score": 19.8,
       "sinceAthWeeks": 35
     },
@@ -6264,7 +6264,7 @@
       "drawdownPct": -72.28,
       "mayer": 0.74,
       "trendDeviation": 0.61,
-      "score": 18.8,
+      "score": 18.9,
       "sinceAthWeeks": 49
     },
     {
@@ -6510,7 +6510,7 @@
       "ath": 68991,
       "drawdownPct": -65.74,
       "mayer": 1.2,
-      "trendDeviation": 0.658,
+      "trendDeviation": 0.659,
       "score": 27.2,
       "sinceAthWeeks": 68
     },
@@ -6991,7 +6991,7 @@
       "ath": 68991,
       "drawdownPct": -45.07,
       "mayer": 1.3,
-      "trendDeviation": 0.819,
+      "trendDeviation": 0.82,
       "score": 39.4,
       "sinceAthWeeks": 105
     },
@@ -7186,7 +7186,7 @@
       "ath": 68991,
       "drawdownPct": -9.43,
       "mayer": 1.66,
-      "trendDeviation": 1.223,
+      "trendDeviation": 1.224,
       "score": 62.5,
       "sinceAthWeeks": 120
     },
@@ -7238,7 +7238,7 @@
       "ath": 73734,
       "drawdownPct": -5.83,
       "mayer": 1.6,
-      "trendDeviation": 1.324,
+      "trendDeviation": 1.325,
       "score": 64.2,
       "sinceAthWeeks": 1
     },
@@ -7680,7 +7680,7 @@
       "ath": 94925,
       "drawdownPct": -0.59,
       "mayer": 1.44,
-      "trendDeviation": 1.448,
+      "trendDeviation": 1.449,
       "score": 65.7,
       "sinceAthWeeks": 0
     },
@@ -7836,7 +7836,7 @@
       "ath": 109112,
       "drawdownPct": -10.3,
       "mayer": 1.23,
-      "trendDeviation": 1.394,
+      "trendDeviation": 1.395,
       "score": 59,
       "sinceAthWeeks": 3
     },
@@ -7992,7 +7992,7 @@
       "ath": 109112,
       "drawdownPct": -11.07,
       "mayer": 1.06,
-      "trendDeviation": 1.284,
+      "trendDeviation": 1.285,
       "score": 56,
       "sinceAthWeeks": 15
     },
@@ -8031,7 +8031,7 @@
       "ath": 111983.2,
       "drawdownPct": -3.73,
       "mayer": 1.13,
-      "trendDeviation": 1.401,
+      "trendDeviation": 1.402,
       "score": 60.8,
       "sinceAthWeeks": 0
     },
@@ -8175,7 +8175,7 @@
       "drawdownPct": -0.3,
       "mayer": 1.22,
       "trendDeviation": 1.501,
-      "score": 63.9,
+      "score": 64,
       "sinceAthWeeks": 0
     },
     {
@@ -8331,7 +8331,7 @@
       "drawdownPct": -17.67,
       "mayer": 0.94,
       "trendDeviation": 1.177,
-      "score": 51,
+      "score": 51.1,
       "sinceAthWeeks": 4
     },
     {
@@ -8486,7 +8486,7 @@
       "ath": 126198.1,
       "drawdownPct": -29.35,
       "mayer": 0.85,
-      "trendDeviation": 0.941,
+      "trendDeviation": 0.942,
       "score": 42.7,
       "sinceAthWeeks": 16
     },
@@ -8642,7 +8642,7 @@
       "ath": 126198.1,
       "drawdownPct": -38.03,
       "mayer": 0.91,
-      "trendDeviation": 0.77,
+      "trendDeviation": 0.771,
       "score": 37.5,
       "sinceAthWeeks": 28
     },
@@ -8902,7 +8902,7 @@
       "ath": 126198.1,
       "drawdownPct": -37.96,
       "mayer": 1.12,
-      "trendDeviation": 0.688,
+      "trendDeviation": 0.689,
       "score": 38.5,
       "sinceAthWeeks": 48
     },
@@ -8980,7 +8980,7 @@
       "ath": 126198.1,
       "drawdownPct": -33.42,
       "mayer": 1.16,
-      "trendDeviation": 0.714,
+      "trendDeviation": 0.715,
       "score": 41.2,
       "sinceAthWeeks": 54
     },
@@ -9039,14 +9039,14 @@
     {
       "t": 1795046400000,
       "date": "2026-11-19",
-      "close": 60570.6,
+      "close": 59767.1,
       "high": 64520.3,
       "low": 55100,
       "ath": 126198.1,
-      "drawdownPct": -52,
-      "mayer": 0.84,
-      "trendDeviation": 0.501,
-      "score": 26.2,
+      "drawdownPct": -52.64,
+      "mayer": 0.83,
+      "trendDeviation": 0.494,
+      "score": 25.7,
       "sinceAthWeeks": 59
     }
   ],
@@ -11305,11 +11305,11 @@
       "open": 77982.6,
       "high": 81200,
       "low": 55134,
-      "close": 60659.9,
+      "close": 59852,
       "isPartial": true,
-      "days": 23,
+      "days": 24,
       "prevClose": 77982.5,
-      "changePct": -22.21
+      "changePct": -23.25
     }
   ],
   "monthlyStats": {
@@ -11318,21 +11318,21 @@
     "to": "2026-11",
     "current": {
       "key": "2026-11",
-      "close": 60659.9,
+      "close": 59852,
       "prevClose": 77982.5,
-      "changePct": -22.21,
+      "changePct": -23.25,
       "isPartial": true,
       "high": 81200,
       "low": 55134,
-      "days": 23,
-      "spot": 60659.9
+      "days": 24,
+      "spot": 59852
     },
-    "avgChange": 6.77,
+    "avgChange": 6.76,
     "upMonths": 83,
     "downMonths": 74,
     "winRate": 52.9,
     "medianChange": 1.19,
-    "currentPercentile": 7.6,
+    "currentPercentile": 7,
     "best": {
       "key": "2013-11",
       "changePct": 309.52,
@@ -11564,15 +11564,15 @@
         "score": 61.8,
         "price": 126198.1,
         "anchorDate": "2025-08-07",
-        "anchorScore": 63.9
+        "anchorScore": 64
       },
       "bottom": {
         "date": "2026-11-19",
         "month": "2026-11",
-        "score": 26.2,
+        "score": 25.7,
         "price": 55100,
         "anchorDate": "2026-11-19",
-        "anchorScore": 26.2
+        "anchorScore": 25.7
       },
       "phases": [
         {
@@ -11632,15 +11632,15 @@
       "score": 61.8,
       "price": 126198.1,
       "anchorDate": "2025-08-07",
-      "anchorScore": 63.9
+      "anchorScore": 64
     },
     "bottom": {
       "date": "2026-11-19",
       "month": "2026-11",
-      "score": 26.2,
+      "score": 25.7,
       "price": 55100,
       "anchorDate": "2026-11-19",
-      "anchorScore": 26.2
+      "anchorScore": 25.7
     },
     "phases": [
       {
@@ -13134,8 +13134,8 @@
           "key": "2026-11",
           "year": 2026,
           "cycleYear": 2,
-          "price": 60659.9,
-          "norm": 59.4
+          "price": 59852,
+          "norm": 58.6
         }
       ],
       "yearSpans": [
@@ -13354,15 +13354,15 @@
       {
         "date": "2026-11-19",
         "price": 55100,
-        "score": 26.2,
-        "drawdownPct": -52,
+        "score": 25.7,
+        "drawdownPct": -52.64,
         "confirmed": false,
         "cycleLabel": "2025-2028",
         "cycleIndex": 4,
         "phaseId": "fall",
         "phaseName": "下跌期",
         "monthInCycle": 23,
-        "normPrice": 59.4,
+        "normPrice": 58.6,
         "gain3m": null,
         "gain6m": null,
         "gain1y": null,
@@ -13398,7 +13398,7 @@
     "forbiddenPhaseCount": 0,
     "scoreRange": {
       "min": 3.2,
-      "max": 26.2,
+      "max": 25.7,
       "median": 15.5
     },
     "monthRange": {
@@ -13450,9 +13450,9 @@
         "req": "低于 25",
         "op": "lt",
         "threshold": 25,
-        "value": 26.2,
+        "value": 25.7,
         "pass": false,
-        "gap": 1.2
+        "gap": 0.7
       },
       {
         "id": "phase",
@@ -13478,9 +13478,9 @@
         "req": "低于 -70%",
         "op": "lt",
         "threshold": -70,
-        "value": -52,
+        "value": -52.64,
         "pass": false,
-        "gap": 18
+        "gap": 17.4
       }
     ]
   },
@@ -13906,7 +13906,7 @@
           "score": 41.2,
           "drawdownPct": -31.69,
           "price": 86207.8,
-          "gain1y": -30
+          "gain1y": -31
         },
         {
           "date": "2026-01-29",
@@ -13914,7 +13914,7 @@
           "score": 33.6,
           "drawdownPct": -42.14,
           "price": 73013.6,
-          "gain1y": -17
+          "gain1y": -18
         },
         {
           "date": "2026-02-26",
@@ -13922,7 +13922,7 @@
           "score": 33.7,
           "drawdownPct": -42.4,
           "price": 72684.8,
-          "gain1y": -17
+          "gain1y": -18
         },
         {
           "date": "2026-04-02",
@@ -13930,7 +13930,7 @@
           "score": 33.1,
           "drawdownPct": -43.65,
           "price": 71109,
-          "gain1y": -15
+          "gain1y": -16
         },
         {
           "date": "2026-05-28",
@@ -13938,7 +13938,7 @@
           "score": 29.2,
           "drawdownPct": -49.26,
           "price": 64035.8,
-          "gain1y": -5
+          "gain1y": -7
         },
         {
           "date": "2026-11-12",
@@ -13946,7 +13946,7 @@
           "score": 27.8,
           "drawdownPct": -50.09,
           "price": 62984.6,
-          "gain1y": -4
+          "gain1y": -5
         }
       ]
     }
@@ -13978,7 +13978,7 @@
         "days": 5075,
         "from": "2013-01-01",
         "to": "2026-11-23",
-        "lagDays": 1
+        "lagDays": 2
       },
       "zones": [
         {
@@ -14436,13 +14436,13 @@
       }
     ],
     "distance": {
-      "current": 26.2,
-      "price": 60659.9,
+      "current": 25.7,
+      "price": 59852,
       "reachedLevel": "entry",
       "nextLevel": "add",
-      "toNext": 1.2,
-      "toBuy": 11.2,
-      "toAlert": 1.2
+      "toNext": 0.7,
+      "toBuy": 10.7,
+      "toAlert": 0.7
     },
     "armed": {
       "deep": true,
@@ -14450,7 +14450,7 @@
       "add": false,
       "entry": false
     },
-    "lastCheck": "2026-11-24T05:52:29.565Z"
+    "lastCheck": "2026-11-24T17:27:47.816Z"
   },
   "backtest": {
     "months": 157,
@@ -15498,7 +15498,7 @@
       },
       {
         "month": "2025-08",
-        "score": 59.2,
+        "score": 59.3,
         "amount": 50,
         "price": 108787.1,
         "mult": 0.5
@@ -15512,7 +15512,7 @@
       },
       {
         "month": "2025-10",
-        "score": 55.1,
+        "score": 55.2,
         "amount": 50,
         "price": 110300.2,
         "mult": 0.5
@@ -15613,10 +15613,10 @@
   "dailyBrief": {
     "current": {
       "date": "2026-11-24",
-      "at": "2026-11-24T05:52:29.565Z",
-      "price": 60660,
-      "score": 26.2,
-      "drawdownPct": -52,
+      "at": "2026-11-24T17:27:47.817Z",
+      "price": 59852,
+      "score": 25.7,
+      "drawdownPct": -52.64,
       "mvrv": 1.152,
       "avgCost": 53171,
       "fng": 11,
@@ -15641,15 +15641,15 @@
     },
     "change": {
       "reasons": [
-        "评分 -15.3",
-        "价格 -27.8%",
+        "评分 -15.8",
+        "价格 -28.7%",
         "MVRV -0.46",
         "情绪 -60",
         "评分跨过 40 分线",
         "价格跨过 $80,000 线",
-        "距「进入买点区间」仅剩 1.2 分"
+        "距「进入买点区间」仅剩 0.7 分"
       ],
-      "gap": 1.1999999999999993
+      "gap": 0.6999999999999993
     }
   }
 }
